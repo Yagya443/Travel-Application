@@ -1,11 +1,11 @@
 const jwt = require("jsonwebtoken");
 
-const authMiddleware = (reqq, res, next) => {
+const authMiddleware = (req, res, next) => {
     try {
-        const authToken = reqq.headers.authorization;
+        const authToken = req.headers.authorization;
 
         if (!authToken) {
-            return res.status(401).jso({ message: "No Token Provided" });
+            return res.status(401).json({ message: "No Token Provided" });
         }
 
         const token = authToken.split(" ")[1];
