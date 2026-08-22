@@ -1,9 +1,15 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 const morgan = require("morgan");
+const userRoutes=require("./SRC/Routes/User.Routes")
 
 const app = express();
+app.use(cors({}));
+app.use(express.json());
+
+app.use("/", userRoutes);
 
 const connectDB = async () => {
     try {
@@ -15,6 +21,7 @@ const connectDB = async () => {
     }
 };
 connectDB();
+
 
 if(process.env.NODE_ENV==='development'){
     app.use(morgan('dev'))

@@ -1,16 +1,16 @@
 const express = require("express");
-
+const jwt=require("jsonwebtoken")
 const User = require("../Model/User.Model");
 
-const signUp = async (req, res) => {
+const signup = async (req, res) => {
     try {
         const { username, password, email } = req.body;
-        const existUser = User.findOne({ email });
+        const existUser = await User.findOne({ email });
         if (existUser) {
             return res.status(404).json({ message: "User Already Exist" });
         }
         const user = new User({
-            name,
+            username,
             email,
             password,
         });
@@ -37,7 +37,7 @@ const signUp = async (req, res) => {
 const login = async (req, res) => {
     try {
         const { email, password } = req.body;
-        const existUser = User.findOne({ email });
+        const existUser =await User.findOne({ email });
         if (!existUser) {
             return res.status(404).json({ message: "No User Exist" });
         }
@@ -65,4 +65,4 @@ const login = async (req, res) => {
     }
 };
 
-module.exports = { login };
+module.exports = { login,signup };
