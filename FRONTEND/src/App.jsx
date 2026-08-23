@@ -1,15 +1,15 @@
 import { useState } from 'react'
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
-import Login from './Pages/Login'
-import Signup from './Pages/Signup'
-import Navbar from './Pages/Navbar'
+import Login from './Pages/Auth/Login'
+import Signup from './Pages/Auth/Signup'
+import Navbar from './Components/Navbar'
 
 function App() {
 
   return (
     <>
-    <div className=''>
+    <div >
         {<Navbar/>} 
       <Routes>
         <Route path='/' element={<Login/>} />
