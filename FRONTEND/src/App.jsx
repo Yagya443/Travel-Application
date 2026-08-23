@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom'
 import Login from './Pages/Auth/Login'
 import Signup from './Pages/Auth/Signup'
 import Navbar from './Components/Navbar'
+import Planner from './Pages/Planner/Planner'
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Login/>} />
         <Route path='/signup' element={<Signup/>} />
+        <Route path='/planner' element={<Planner />} />
       </Routes>
     </div>
     </>
