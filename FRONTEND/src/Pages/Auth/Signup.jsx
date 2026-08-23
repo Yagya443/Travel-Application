@@ -1,6 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useMutation } from "@tanstack/react-query";
 
 const Signup = () => {
     const [formData, setFormData] = useState({
@@ -8,17 +11,48 @@ const Signup = () => {
         email: "",
         password: "",
     });
+    const navigate=useNavigate()
+    const [showPassword, setShowPassword] = useState(false);
+
+    const signupMutation = useMutation({
+        mutationFn: async ({ username, email, password }) => {
+            const response = await axios.post(
+                `${import.meta.env.VITE_RENDER_URL}/signup`,
+                {
+                    username,
+                    email,
+                    password,
+                },
+            );
+            return response.data;
+        },
+        onSuccess: (data) => {
+            localStorage.setItem("token", data.token);
+            navigate("/dashboard");
+        },
+        onError: (error) => {
+            console.log(error);
+        },
+    });
+
+    const handleSubmit = (e) => {
+        signupMutation.mutate({
+            username: formData.username,
+            email: formData.email,
+            password: formData.password,
+        });
+    };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-600 via-purple-600 to-pink-500 flex items-center justify-center px-4">
+        <div className="min-h-screen bg-gray-800 flex items-center justify-center px-4">
             <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl p-4">
                 <div className="text-center">
                     <h1 className="text-3xl font-bold text-gray-800">
-                        {"Welcome Back!"}
+                        {"Welcome!"}
                     </h1>
 
                     <p className="text-gray-500">
-                        {"Login to continue your journey"}
+                        {"SignIn to continue your journey..."}
                     </p>
                 </div>
 
@@ -30,7 +64,6 @@ const Signup = () => {
 
                         <input
                             type="text"
-                            name="username"
                             value={formData.username}
                             onChange={(e) =>
                                 setFormData({
@@ -51,7 +84,6 @@ const Signup = () => {
 
                         <input
                             type="email"
-                            name="email"
                             value={formData.email}
                             onChange={(e) =>
                                 setFormData({
@@ -71,20 +103,31 @@ const Signup = () => {
                             Password
                         </label>
 
-                        <input
-                            type="password"
-                            name="password"
-                            value={formData.password}
-                            onChange={(e) =>
-                                setFormData({
-                                    ...formData,
-                                    password: e.target.value,
-                                })
-                            }
-                            placeholder="Enter your password"
-                            required
-                            className="w-full px-4 py-3 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
-                        />
+                        <div className="flex items-center gap-4 rounded-lg ">
+                            <input
+                                type={showPassword ? "text" : "password"}
+                                value={formData.password}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        password: e.target.value,
+                                    })
+                                }
+                                placeholder="Enter your password"
+                                required
+                                className="w-full px-4 py-3 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                            />
+                            <div
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="cursor-pointer"
+                            >
+                                {showPassword ? (
+                                    <FaEye size={30} />
+                                ) : (
+                                    <FaEyeSlash size={30} />
+                                )}
+                            </div>
+                        </div>
                     </div>
 
                     <div className="text-right">
@@ -97,7 +140,7 @@ const Signup = () => {
                     </div>
 
                     <button
-                        type="submit"
+                        onClick={handleSubmit}
                         className="w-full py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition duration-200 cursor-pointer"
                     >
                         Sign Up

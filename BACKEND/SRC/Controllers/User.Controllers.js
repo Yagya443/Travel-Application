@@ -34,6 +34,7 @@ const signup = async (req, res) => {
         console.log(error);
     }
 };
+
 const login = async (req, res) => {
     try {
         const { email, password } = req.body;
