@@ -4,33 +4,27 @@ import { DateInput } from "../../Components/dateInput";
 import { Counter } from "../../Components/Counter";
 
 const PlannerForm = ({
-   destination,
-setDestination,
-startDate,
-setStartDate,
-endDate,
-setEndDate,
-adults,
-children,
-increaseAdults,
-decreaseAdults,
-increaseChildren,
-decreaseChildren,
-minBudget,
-maxBudget,
-setMinBudget,
-setMaxBudget,
-generateRoute
+    destination,
+    setDestination,
+    startDate,
+    setStartDate,
+    endDate,
+    setEndDate,
+    adults,
+    children,
+    increaseAdults,
+    decreaseAdults,
+    increaseChildren,
+    decreaseChildren,
+    minBudget,
+    maxBudget,
+    setMinBudget,
+    setMaxBudget,
+    generateRoute,
 }) => {
     return (
         <section className="px-7 py-5">
-            <div className="mb-11">
-                <div className="mb-2 flex items-center gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-blue-500 " />
-                    <span className="text-[9px] font-bold tracking-[0.32em] text-blue-400">
-                        PLANNER ENGINE V4.0
-                    </span>
-                </div>
+            <div className="mb-4">
 
                 <h1 className="text-[21px] font-black italic tracking-tight">
                     ROUTE <span className="text-blue-500">SYNTHESIS</span>
@@ -39,7 +33,7 @@ generateRoute
 
             {/* Destination */}
             <div className="mb-5">
-                <label className="mb-1 text-[12px] font-semibold tracking-[0.18em] text-gray-500">
+                <label className="mb-2 text-[12px] font-semibold tracking-[0.18em] text-gray-500">
                     TARGET SECTOR
                 </label>
 
@@ -58,14 +52,11 @@ generateRoute
                 </div>
             </div>
 
-            {/* Dates */}
             <div className="mb-5 grid grid-cols-2 gap-3">
                 <DateInput value={startDate} onChange={setStartDate} />
-
                 <DateInput value={endDate} onChange={setEndDate} />
             </div>
 
-            {/* Guests */}
             <div className="mb-6 grid grid-cols-2 gap-3">
                 <Counter
                     label="ADULT UNITS"
@@ -87,7 +78,7 @@ generateRoute
                     FISCAL RANGE (USD)
                 </label>
 
-                <div className="grid h-11 grid-cols-2 overflow-hidden rounded-md border border-white/[0.08] bg-[#111213]">
+                <div className="grid h-11 grid-cols-2 overflow-hidden rounded-md bg-[#111213]">
                     <div className="relative flex items-center">
                         <span className="absolute left-3 text-[16px] text-bold text-white">
                             $
@@ -101,9 +92,8 @@ generateRoute
                         />
                     </div>
 
-                    <div className="flex items-center border-l border-white/[0.06]">
+                    <div className="flex items-center">
                         <span className="text-white">→</span>
-
                         <input
                             type="number"
                             value={maxBudget}

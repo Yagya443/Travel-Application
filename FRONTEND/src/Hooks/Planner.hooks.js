@@ -10,15 +10,12 @@ const usePlanner = () => {
     const [children, setChildren] = useState(0);
     const [minBudget, setMinBudget] = useState(0);
     const [maxBudget, setMaxBudget] = useState(0);
-    const [selected, setSelected] = useState(
-        experiences.map((experience) => experience.id),
-    );
+    const [selected, setSelected] = useState([]);
     const toggleExperience = (id) => {
         setSelected((prev) =>
-            prev.includes(id)
-                ? prev.filter((item) => item !== id)
-                : [...prev, id],
+            prev.includes(id) ? prev.filter((expId)=> expId!==id) : [...prev, id]
         );
+        console.log("Selected experiences:", selected);
     };
 
     // Functions
