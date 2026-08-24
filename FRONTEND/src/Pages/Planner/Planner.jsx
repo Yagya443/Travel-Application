@@ -17,8 +17,25 @@ const RouteSynthesis = () => {
     };
 
     return (
-        <main className="min-h-screen bg-gray-800 text-white overflow-hidden pt-12">
-            <div className="grid grid-cols-1 lg:grid-cols-[450px_1fr]">
+        <main className="min-h-screen bg-gray-800 text-white overflow-hidden pt-18">
+            <div className="grid grid-cols-[950px_1fr]">
+                
+
+                <section className="px-8 py-6 lg:px-14">
+                    <ExperienceSection
+                        selected={planner.selected}
+                        toggleExperience={planner.toggleExperience}
+                    />
+
+                    <MissionPreview 
+                    destination={planner.destination}
+                    adults={planner.adults}
+                    children={planner.children}
+                    startDate={planner.startDate}
+                    endDate={planner.endDate}
+                    />
+                </section>
+
                 <PlannerForm
                     destination={planner.destination}
                     setDestination={planner.setDestination}
@@ -38,22 +55,6 @@ const RouteSynthesis = () => {
                     setMaxBudget={planner.setMaxBudget}
                     generateRoute={planner.generateRoute}
                 />
-
-                <section className="px-8 py-6 lg:px-14">
-                    {/* Experience header */}
-                    <ExperienceSection
-                        selected={planner.selected}
-                        toggleExperience={planner.toggleExperience}
-                    />
-
-                    {/* Mission Preview */}
-                    <MissionPreview 
-                    destination={planner.destination}
-                    adults={planner.adults}
-                    startDate={planner.startDate}
-                    endDate={planner.endDate}
-                    />
-                </section>
             </div>
         </main>
     );
