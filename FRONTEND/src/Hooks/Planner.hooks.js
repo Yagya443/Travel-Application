@@ -10,7 +10,10 @@ const usePlanner = () => {
     const [children, setChildren] = useState(0);
     const [minBudget, setMinBudget] = useState(0);
     const [maxBudget, setMaxBudget] = useState(0);
+    const [duration, setDuration] = useState(null);
     const [selected, setSelected] = useState([]);
+    const [unitCount, setUnitCount] = useState(null);
+
     const toggleExperience = (id) => {
         setSelected((prev) =>
             prev.includes(id) ? prev.filter((expId)=> expId!==id) : [...prev, id]
@@ -58,6 +61,8 @@ const usePlanner = () => {
         minBudget,
         maxBudget,
         selected,
+        duration,
+        unitCount,
 
         // setters
         setDestination,
@@ -65,6 +70,8 @@ const usePlanner = () => {
         setEndDate,
         setMinBudget,
         setMaxBudget,
+        setDuration,
+        setUnitCount,
 
         // functions
         increaseAdults,

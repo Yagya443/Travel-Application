@@ -8,31 +8,21 @@ import MissionPreview from "./MissionPreview";
 const RouteSynthesis = () => {
     const planner = useRoutePlanner();
 
-    const formatDate = (date) => {
-        if (!date) return "--";
-
-        const [year, month, day] = date.split("-");
-
-        return `${month}/${day}/${year}`;
-    };
-
     return (
         <main className="min-h-screen bg-gray-800 text-white overflow-hidden pt-18">
             <div className="grid grid-cols-[950px_1fr]">
-                
-
                 <section className="px-8 py-6 lg:px-14">
                     <ExperienceSection
                         selected={planner.selected}
                         toggleExperience={planner.toggleExperience}
                     />
 
-                    <MissionPreview 
-                    destination={planner.destination}
-                    adults={planner.adults}
-                    children={planner.children}
-                    startDate={planner.startDate}
-                    endDate={planner.endDate}
+                    <MissionPreview
+                        destination={planner.destination}
+                        adults={planner.adults}
+                        children={planner.children}
+                        startDate={planner.startDate}
+                        endDate={planner.endDate}
                     />
                 </section>
 
@@ -59,29 +49,5 @@ const RouteSynthesis = () => {
         </main>
     );
 };
-
-/* =============================================================
-   DATE INPUT
-============================================================= */
-
-
-
-/* =============================================================
-   COUNTER
-============================================================= */
-
-
-
-/* =============================================================
-   PREVIEW ITEM
-============================================================= */
-
-
-
-/* =============================================================
-   DATE CALCULATION
-============================================================= */
-
-
 
 export default RouteSynthesis;
