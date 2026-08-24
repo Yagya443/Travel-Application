@@ -9,6 +9,5 @@ export const calculateDuration = (start, end) => {
     const days = Math.ceil(difference / (1000 * 60 * 60 * 24));
 
     if (days <= 0) return "INVALID";
-
-    return `${days} DAYS`;
+    return days;
 };

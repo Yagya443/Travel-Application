@@ -18,20 +18,33 @@ const MissionPreview = ({
 
                 <div className="relative min-h-34.5 overflow-hidden rounded-xl border border-white">
                     <div className="relative grid h-full grid-cols-3 px-7 py-10">
-                        <PreviewItem
-                            label="LOCATION"
-                            value={destination || "Location Not Set"}
-                        />
+                        <div>
+                            <p className="mb-2 text-[7px] font-bold tracking-[0.16em] text-gray-600">
+                                LOCATION
+                            </p>
 
-                        <PreviewItem
-                            label="TRAVELERS"
-                            value={`${adults} Adults & ${children} Children`}
-                        />
+                            <p className="max-w-45 truncate text-[13px] font-black tracking-wide text-gray-200">
+                                {destination || "Location Not Set"}
+                            </p>
+                        </div>
+                        <div>
+                            <p className="mb-2 text-[7px] font-bold tracking-[0.16em] text-gray-600">
+                                TRAVELERS
+                            </p>
 
-                        <PreviewItem
-                            label="DURATION"
-                            value={calculateDuration(startDate, endDate)}
-                        />
+                            <p className="max-w-45 truncate text-[13px] font-black tracking-wide text-gray-200">
+                                {`${adults} Adults & ${children} Children`}
+                            </p>
+                        </div>
+                        <div>
+                            <p className="mb-2 text-[7px] font-bold tracking-[0.16em] text-gray-600">
+                                DURATION
+                            </p>
+
+                            <p className="max-w-45 truncate text-[13px] font-black tracking-wide text-gray-200">
+                                {calculateDuration(startDate, endDate)}
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
