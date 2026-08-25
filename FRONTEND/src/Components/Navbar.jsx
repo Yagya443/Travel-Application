@@ -13,7 +13,7 @@ const Navbar = () => {
             <div className="flex text-white gap-4 border border-white px-1 py-1 rounded-sm text-2xl ">
                 <NavLink
                     className={({ isActive }) =>
-                        `px-2 rounded-lg ${isActive ? "bg-blue-500" : ""}`
+                        `px-6 rounded-lg ${isActive ? "bg-blue-500" : ""}`
                     }
                     to="/overview"
                 >
@@ -21,7 +21,7 @@ const Navbar = () => {
                 </NavLink>
                 <NavLink
                     className={({ isActive }) =>
-                        `px-2 rounded-lg ${isActive ? "bg-blue-500" : ""}`
+                        `px-6 rounded-lg ${isActive ? "bg-blue-500" : ""}`
                     }
                     to="/planner"
                 >
@@ -29,7 +29,7 @@ const Navbar = () => {
                 </NavLink>
                 <NavLink
                     className={({ isActive }) =>
-                        `px-2 rounded-lg ${isActive ? "bg-blue-500" : ""}`
+                        `px-6 rounded-lg ${isActive ? "bg-blue-500" : ""}`
                     }
                     to="/audit"
                 >
@@ -37,7 +37,7 @@ const Navbar = () => {
                 </NavLink>
                 <NavLink
                     className={({ isActive }) =>
-                        `px-2 rounded-lg ${isActive ? "bg-blue-500" : ""}`
+                        `px-6 rounded-lg ${isActive ? "bg-blue-500" : ""}`
                     }
                     to="/journey"
                 >
