@@ -1,5 +1,5 @@
 const express = require("express");
-const jwt=require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
 const User = require("../Model/User.Model");
 
 const signup = async (req, res) => {
@@ -38,7 +38,7 @@ const signup = async (req, res) => {
 const login = async (req, res) => {
     try {
         const { email, password } = req.body;
-        const existUser =await User.findOne({ email });
+        const existUser = await User.findOne({ email });
         if (!existUser) {
             return res.status(404).json({ message: "No User Exist" });
         }
@@ -66,4 +66,26 @@ const login = async (req, res) => {
     }
 };
 
-module.exports = { login,signup };
+const getMe = async (req, res) => {
+    try {
+        const existUser = await User.findById(req.user._id).select("-password");
+
+        if (!existUser) {
+            return res.status(404).json({
+                message: "User not found",
+            });
+        }
+
+        res.status(200).json({
+            message: "Successfully fetch Get User Request",
+            username: existUser.username,
+            email: existUser.email,
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: "Something went wrong in Get User request",
+        });
+    }
+};
+
+module.exports = { login, signup, getMe };
