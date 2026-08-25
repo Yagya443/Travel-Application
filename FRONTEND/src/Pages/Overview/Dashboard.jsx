@@ -11,9 +11,44 @@ import {
 import { CiBookmark } from "react-icons/ci";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
 const Dashboard = () => {
-    const [sidebarOpen, setSidebarOpen] = useState(false);
+    
+    const getMe = async () => {
+        const token = localStorage.getItem("token");
+
+        const response = await axios.get("http://localhost:5000/api/user/me", {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        return response.data;
+    };
+
+    const {
+        data: user,
+        isLoading,
+        isError,
+        error,
+    } = useQuery({
+        queryKey: ["user"],
+        queryFn: getMe,
+    });
+
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+
+    if (isError) {
+        return (
+            <div>
+                Error:{" "}
+                {error?.response?.data?.message || "Something went wrong"}
+            </div>
+        );
+    }
 
     const upcomingTrips = [
         {
@@ -309,3 +344,17 @@ const QuickAction = ({ icon, title, description }) => {
 };
 
 export default Dashboard;
+
+import axios from "axios";
+
+export const getMe = async () => {
+    const token = localStorage.getItem("token");
+
+    const response = await axios.get("http://localhost:5000/api/user/me", {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+
+    return response.data;
+};
