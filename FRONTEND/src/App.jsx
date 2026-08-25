@@ -6,6 +6,7 @@ import Signup from './Pages/Auth/Signup'
 import Navbar from './Components/Navbar'
 import Planner from './Pages/Planner/Planner'
 import Audit from './Pages/Audit/Audit'
+import Dashboard from './Pages/Overview/Dashboard'
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
         <Route path='/signup' element={<Signup/>} />
         <Route path='/audit' element={<Audit />} />
         <Route path='/planner' element={<Planner />} />
+        <Route path='/overview' element={<Dashboard />} />
       </Routes>
     </div>
     </>
