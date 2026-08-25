@@ -16,7 +16,7 @@ const Audit = () => {
                     setUnitCount={planner.setUnitCount}
                 />
 
-                <section className="px-8 py-6 lg:px-14">
+                <section className="px-8 py-6 lg:px-14 bg-gray-900 rounded-3xl mr-4 mt-8">
                     <FinancialAudit />
                 </section>
             </div>
