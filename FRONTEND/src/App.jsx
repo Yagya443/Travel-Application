@@ -7,6 +7,7 @@ import Navbar from './Components/Navbar'
 import Planner from './Pages/Planner/Planner'
 import Audit from './Pages/Audit/Audit'
 import Dashboard from './Pages/Overview/Dashboard'
+import Journey from './Pages/Journey/Journey'
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
         <Route path='/audit' element={<Audit />} />
         <Route path='/planner' element={<Planner />} />
         <Route path='/overview' element={<Dashboard />} />
+        <Route path='/journey' element={<Journey />} />
       </Routes>
     </div>
     </>
