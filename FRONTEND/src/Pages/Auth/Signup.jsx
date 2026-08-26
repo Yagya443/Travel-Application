@@ -28,7 +28,7 @@ const Signup = () => {
         },
         onSuccess: (data) => {
             localStorage.setItem("token", data.token);
-            navigate("/dashboard");
+            navigate("/overview");
         },
         onError: (error) => {
             console.log(error);
