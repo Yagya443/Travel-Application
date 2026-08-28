@@ -10,13 +10,14 @@ const authMiddleware = (req, res, next) => {
 
         const token = authToken.split(" ")[1];
 
-        const decode = jwt.verify(token, process.env.JWT_SCRETE);
+        const decode = jwt.verify(token, process.env.JWT_TOKEN);
+
+        console.log(decode);
 
         req.user = decode;
-
         next();
     } catch (error) {
-        return res.status(401).json({ message: "Error at Auth Middleware" });
+        return res.status(401).json({ message: error.message });
     }
 };
 

@@ -18,9 +18,9 @@ const signup = async (req, res) => {
         await user.save();
         const token = jwt.sign(
             {
-                _id: user._id,
+                id: user.id,
             },
-            process.env.JWT_SECRET,
+            process.env.JWT_TOKEN,
             {
                 expiresIn: "7d",
             },
@@ -49,9 +49,9 @@ const login = async (req, res) => {
         }
         const token = jwt.sign(
             {
-                _id: existUser._id,
+                id: existUser.id,
             },
-            process.env.JWT_SECRET,
+            process.env.JWT_TOKEN,
             {
                 expiresIn: "7d",
             },
@@ -68,7 +68,7 @@ const login = async (req, res) => {
 
 const getMe = async (req, res) => {
     try {
-        const existUser = await User.findById(req.user._id).select("-password");
+        const existUser = await User.findById(req.user.id);
 
         if (!existUser) {
             return res.status(404).json({
