@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
     MapPin,
     CalendarDays,
@@ -17,26 +17,21 @@ import axios from "axios";
 const Dashboard = () => {
     // const getMe = async () => {
     //     const token = localStorage.getItem("token");
-
     //     const response = await axios.get("http://localhost:3000/me", {
     //         headers: {
     //             Authorization: `Bearer ${token}`,
     //         },
     //     });
     //     console.log(response.data);
-
     //     return response.data;
     // };
-
     // const { data, isLoading, isError, error } = useQuery({
     //     queryKey: ["user"],
     //     queryFn: getMe,
     // });
-
     // if (isLoading) {
     //     return <div>Loading...</div>;
     // }
-
     // if (isError) {
     //     return (
     //         <div>
@@ -68,7 +63,6 @@ const Dashboard = () => {
             status: "Upcoming",
         },
     ];
-
     const recentTrips = [
         {
             id: 3,
