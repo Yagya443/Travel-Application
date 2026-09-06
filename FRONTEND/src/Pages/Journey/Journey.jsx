@@ -1,5 +1,6 @@
 import React from "react";
 import { Globe2, MapPin } from "lucide-react";
+import Spline from "@splinetool/react-spline";
 
 const Journey = () => {
     const countries = [
@@ -41,19 +42,17 @@ const Journey = () => {
     ];
 
     return (
-        <div className="min-h-screen bg-slate-50 px-6 py-10">
-            <div className="mx-auto max-w-6xl">
-                {/* Header */}
+        <div className="min-h-screen bg-gray-800 text-slate-900 px-6 py-20 ">
+            <div className="mx-auto max-w-6xl ">
                 <div className="mb-8">
                     <div className="mb-2 flex items-center gap-2 text-blue-600">
                         <Globe2 size={20} />
-
                         <span className="text-sm font-semibold">
                             YOUR JOURNEY
                         </span>
                     </div>
 
-                    <h1 className="text-3xl font-bold text-slate-900">
+                    <h1 className="text-3xl font-bold text-white">
                         Places you've explored
                     </h1>
 
@@ -63,7 +62,7 @@ const Journey = () => {
                 </div>
 
                 {/* Main Card */}
-                <div className="grid overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm md:grid-cols-2">
+                <div className="grid overflow-hidden rounded-3xl border border-slate-200 bg-gray-900 grid-cols-2">
                     {/* LEFT — IMAGE */}
                     <div className="relative min-h-[500px]">
                         <img
@@ -71,9 +70,6 @@ const Journey = () => {
                             alt="Travel"
                             className="absolute inset-0 h-full w-full object-cover"
                         />
-
-                        {/* Overlay */}
-                        <div className="absolute inset-0 bg-black/30" />
 
                         {/* Image content */}
                         <div className="absolute bottom-8 left-8 text-white">
@@ -93,13 +89,13 @@ const Journey = () => {
 
                     {/* RIGHT — COUNTRIES */}
                     <div className="p-6 md:p-8">
-                        <div className="mb-6 flex items-center justify-between">
+                        <div className="mb-6 flex items-center text-white justify-between">
                             <div>
-                                <h2 className="text-xl font-bold text-slate-900">
+                                <h2 className="text-xl font-bold ">
                                     Countries
                                 </h2>
 
-                                <p className="mt-1 text-sm text-slate-500">
+                                <p className="mt-1 text-sm ">
                                     Your travel history
                                 </p>
                             </div>
@@ -109,31 +105,29 @@ const Journey = () => {
                             </div>
                         </div>
 
-                        {/* Country List */}
-                        <div className="max-h-[420px] space-y-2 overflow-y-auto pr-2">
+                        <div className="max-h-[420px] space-y-2 overflow-y-auto pr-2 text-white scrollbar-thumb-sky-600 overflow-y-scroll">
                             {countries.map((country, index) => (
                                 <div
                                     key={country.name}
-                                    className="group flex cursor-pointer items-center justify-between rounded-2xl border border-transparent p-3 transition hover:border-slate-200 hover:bg-slate-50"
+                                    className="group flex cursor-pointer items-center justify-between rounded-2xl border border-transparent p-3 transition "
                                 >
                                     <div className="flex items-center gap-4">
-                                        {/* Number */}
+
                                         <span className="w-5 text-xs font-medium text-slate-400">
                                             {String(index + 1).padStart(2, "0")}
                                         </span>
 
-                                        {/* Flag */}
-                                        <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-slate-100 text-2xl">
+                                        <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gray-700 text-2xl">
                                             {country.flag}
                                         </div>
 
                                         {/* Country */}
                                         <div>
-                                            <h3 className="font-semibold text-slate-900">
+                                            <h3 className="font-semibold">
                                                 {country.name}
                                             </h3>
 
-                                            <div className="mt-1 flex items-center gap-1 text-xs text-slate-400">
+                                            <div className="mt-1 flex items-center gap-1 text-xs">
                                                 <MapPin size={12} />
                                                 {country.places}
                                             </div>

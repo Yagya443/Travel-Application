@@ -4,7 +4,7 @@ import { IoIosLogOut } from "react-icons/io";
 import { Link, NavLink } from "react-router-dom";
 const Navbar = () => {
     return (
-        <div className="fixed flex gap-2 items-center justify-between bg-gray-700 py-2 px-4 w-screen">
+        <div className="fixed flex gap-2 items-center justify-between bg-gray-700 py-2 px-8 w-screen">
             <div className="flex items-center">
                 <MdTravelExplore size={35} fill={"white"} />
                 <h1 className="text-white text-2xl font-bold">Wix Travel</h1>

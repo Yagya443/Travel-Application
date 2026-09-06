@@ -110,7 +110,7 @@ const Dashboard = () => {
 
                             <Link
                                 to="/planner"
-                                className="mt-6 flex items-center w-44 gap-2 rounded-xl bg-white px-5 py-3 text-sm font-semibold text-blue-600 transition"
+                                className="mt-6 flex items-center w-44 gap-2 rounded-xl bg-gray-800 px-5 py-3 text-sm font-semibold text-blue-600 transition"
                             >
                                 <Sparkles size={17} />
                                 Create AI Trip
@@ -166,11 +166,10 @@ const Dashboard = () => {
                     </section>
 
                     <section className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-                        {/* Recent Trips */}
-                        <div className="rounded-2xl border border-slate-200 bg-white p-5 col-span-2">
-                            <div className="mb-5 flex items-center justify-between">
+                        <div className="rounded-2xl border border-slate-200 bg-gray-900 p-5 col-span-2">
+                            <div className="pb-3 mb-2 flex items-center justify-between border-b-2 border-white">
                                 <div>
-                                    <h2 className="font-bold">Recent Trips</h2>
+                                    <h2 className="font-bold text-white">Recent Trips</h2>
 
                                     <p className="mt-1 text-xs text-slate-500">
                                         Your recently planned trips
@@ -186,7 +185,7 @@ const Dashboard = () => {
                                 {recentTrips.map((trip) => (
                                     <div
                                         key={trip.id}
-                                        className="flex items-center justify-between py-4"
+                                        className="flex items-center justify-between py-4 "
                                     >
                                         <div className="flex items-center gap-3">
                                             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
@@ -194,11 +193,11 @@ const Dashboard = () => {
                                             </div>
 
                                             <div>
-                                                <p className="text-sm font-semibold">
+                                                <p className="text-sm font-semibold text-white">
                                                     {trip.destination}
                                                 </p>
 
-                                                <p className="mt-1 text-xs text-slate-500">
+                                                <p className="mt-1 text-xs text-white/50">
                                                     {trip.date} •{" "}
                                                     {trip.duration}
                                                 </p>
@@ -214,16 +213,16 @@ const Dashboard = () => {
                         </div>
 
                         {/* Quick Action */}
-                        <div className="rounded-2xl bg-white p-5">
+                        <div className="rounded-2xl bg-gray-900 p-5">
                             <div className="mb-5">
-                                <h2 className="font-bold">Quick Actions</h2>
+                                <h2 className="font-bold text-white">Quick Actions</h2>
 
-                                <p className="mt-1 text-xs text-slate-500">
+                                <p className="mt-1 text-xs text-white/60">
                                     Manage your travel plans
                                 </p>
                             </div>
 
-                            <div className="space-y-3">
+                            <div className="space-y-3 text-white">
                                 <QuickAction
                                     icon={<Plus size={18} />}
                                     title="Create New Trip"
@@ -270,7 +269,7 @@ const Dashboard = () => {
 
 const TripCard = ({ trip }) => {
     return (
-        <div className="group overflow-hidden rounded-2xl border border-slate-200 bg-white transition hover:-translate-y-1 hover:shadow-lg">
+        <div className="group overflow-hidden rounded-2xl border border-white bg-gray-900 transition hover:-translate-y-1 hover:shadow-lg">
             <div className="relative h-48 overflow-hidden">
                 <img
                     src={trip.image}
@@ -278,7 +277,7 @@ const TripCard = ({ trip }) => {
                     className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                 />
 
-                <div className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-green-600 ">
+                <div className="absolute left-4 top-4 rounded-full bg-white px-3 py-1 text-xs font-semibold text-green-600 ">
                     {trip.status}
                 </div>
             </div>
@@ -286,7 +285,7 @@ const TripCard = ({ trip }) => {
             <div className="p-5">
                 <div className="flex items-start justify-between">
                     <div>
-                        <h3 className="text-lg font-bold">
+                        <h3 className="text-lg font-bold text-white">
                             {trip.destination}
                         </h3>
 
@@ -319,7 +318,7 @@ const TripCard = ({ trip }) => {
 
 const QuickAction = ({ icon, title, description }) => {
     return (
-        <button className="flex cursor-pointer w-full items-center gap-3 rounded-xl border border-slate-100 p-3 text-left transition hover:border-blue-100 hover:bg-blue-50">
+        <button className="flex cursor-pointer w-full items-center gap-3 rounded-xl border border-slate-100 p-3 text-left transition">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
                 {icon}
             </div>
