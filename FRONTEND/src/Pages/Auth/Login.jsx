@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -71,7 +70,7 @@ const Login = () => {
                                     email: e.target.value,
                                 })
                             }
-                            placeholder="Enter your email"
+                            placeholder="Enter your email (yagnaakv99@gmail.com)"
                             required
                             className="w-full px-4 py-3 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
                         />
@@ -92,7 +91,7 @@ const Login = () => {
                                         password: e.target.value,
                                     })
                                 }
-                                placeholder="Enter your password"
+                                placeholder="Enter your password (12345678)"
                                 required
                                 className="w-full px-4 py-3 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
                             />

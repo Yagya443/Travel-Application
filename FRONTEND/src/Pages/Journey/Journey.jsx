@@ -105,13 +105,13 @@ const Journey = () => {
                             </div>
                         </div>
 
-                        <div className="max-h-[420px] space-y-2 overflow-y-auto pr-2 text-white scrollbar-thumb-sky-600 overflow-y-scroll">
+                        <div className="max-h-105 space-y-2 pr-2 text-white scrollbar-thumb-sky-600 overflow-y-scroll">
                             {countries.map((country, index) => (
                                 <div
                                     key={country.name}
-                                    className="group flex cursor-pointer items-center justify-between rounded-2xl border border-transparent p-3 transition "
+                                    className="group flex cursor-pointer items-center justify-between rounded-2xl p-3 transition border-2 border-transparent hover:border-gray-50"
                                 >
-                                    <div className="flex items-center gap-4">
+                                    <div className="flex items-center gap-4 ">
 
                                         <span className="w-5 text-xs font-medium text-slate-400">
                                             {String(index + 1).padStart(2, "0")}
