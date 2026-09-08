@@ -56,9 +56,19 @@ const getTrip = async (req, res) => {
     }
 };
 
-// const getTripById=async (req,res)=>{
+const getTripById = async (req, res) => {
+    try {
+        const { id } = req.params;
 
-// }
+        const getTrip=await Trip.findById(id)
+
+        return res.status(200).json(trip);
+
+
+    } catch (error) {
+        res.status(401).json({ message: "Something went wrong in deleting" });
+    }
+};
 
 const deleteTrip = async (req, res) => {
     try {
@@ -97,21 +107,20 @@ const editTrip = async (req, res) => {
                 new: true,
             },
         );
-         if (!editTrip) {
+        if (!editTrip) {
             return res.status(404).json({
                 message: "Habit not found",
             });
         }
         res.status(201).json({
-            message:"Habit updated successfully",
-            editTrip
-        })
-
+            message: "Habit updated successfully",
+            editTrip,
+        });
     } catch (error) {
         res.status(400).json({
-            message:"Editing Habit went wrong in controllers",
-        })
+            message: "Editing Habit went wrong in controllers",
+        });
     }
 };
 
-module.exports = { createTrip, getTrip, deleteTrip, editTrip };
+module.exports = { createTrip, getTrip, deleteTrip, editTrip ,getTripById};

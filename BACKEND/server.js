@@ -4,12 +4,14 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const morgan = require("morgan");
 const userRoutes=require("./SRC/Routes/User.Routes")
+const tripRoutes=require("./SRC/Routes/Trip.Routes")
 
 const app = express();
 app.use(cors({}));
 app.use(express.json());
 
 app.use("/", userRoutes);
+app.use("/trip", tripRoutes);
 
 const connectDB = async () => {
     try {

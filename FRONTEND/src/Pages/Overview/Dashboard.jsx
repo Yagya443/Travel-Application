@@ -13,6 +13,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { useGetTrips } from "../../Hooks/trip.hooks";
 
 const Dashboard = () => {
     // const getMe = async () => {
@@ -40,6 +41,8 @@ const Dashboard = () => {
     //         </div>
     //     );
     // }
+
+    
 
     const upcomingTrips = [
         {
@@ -87,9 +90,6 @@ const Dashboard = () => {
     return (
         <div className="min-h-screen bg-gray-800 text-slate-900">
             <main className="">
-                {/* Navbar */}
-
-                {/* Content */}
                 <div className="mx-auto max-w-7xl space-y-8 p-8 ">
                     <section className="relative overflow-hidden rounded-3xl bg-gray-900 mt-12 p-7 text-white md:p-10">
                         <div className="relative z-10 ">
@@ -169,7 +169,9 @@ const Dashboard = () => {
                         <div className="rounded-2xl border border-slate-200 bg-gray-900 p-5 col-span-2">
                             <div className="pb-3 mb-2 flex items-center justify-between border-b-2 border-white">
                                 <div>
-                                    <h2 className="font-bold text-white">Recent Trips</h2>
+                                    <h2 className="font-bold text-white">
+                                        Recent Trips
+                                    </h2>
 
                                     <p className="mt-1 text-xs text-slate-500">
                                         Your recently planned trips
@@ -215,7 +217,9 @@ const Dashboard = () => {
                         {/* Quick Action */}
                         <div className="rounded-2xl bg-gray-900 p-5">
                             <div className="mb-5">
-                                <h2 className="font-bold text-white">Quick Actions</h2>
+                                <h2 className="font-bold text-white">
+                                    Quick Actions
+                                </h2>
 
                                 <p className="mt-1 text-xs text-white/60">
                                     Manage your travel plans
