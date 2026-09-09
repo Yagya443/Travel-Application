@@ -68,10 +68,3 @@ export const useEditTrip = () => {
     });
 };
 
-module.exports = {
-    useGetTrips,
-    useGetTripById,
-    useCreateTrip,
-    useDeleteTrip,
-    useEditTrip,
-};

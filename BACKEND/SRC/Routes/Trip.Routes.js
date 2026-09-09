@@ -1,12 +1,13 @@
 const express=require("express")
 const {createTrip, getTrip, getTripById, deleteTrip, editTrip}=require("../Controllers/Trip.Controllers")
+const authMiddleware = require("../Config/Auth.Middleware")
 
 const router=express.Router()
 
-router.post("/createTrip", createTrip)
-router.get("/getTrip", getTrip)
-router.get("/getTripById",getTripById)
-router.delete("/deleteTrip", deleteTrip)
-router.put("/editTrip", editTrip)
+router.post("/createTrip",authMiddleware, createTrip)
+router.get("/getTrip", authMiddleware, getTrip)
+router.get("/getTripById",authMiddleware, getTripById)
+router.delete("/deleteTrip",authMiddleware, deleteTrip)
+router.put("/editTrip",authMiddleware, editTrip)
 
 module.exports = router;

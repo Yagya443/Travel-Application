@@ -10,62 +10,33 @@ import {
 } from "lucide-react";
 import { CiBookmark } from "react-icons/ci";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useGetTrips } from "../../Hooks/trip.hooks";
 
 const Dashboard = () => {
-    // const getMe = async () => {
-    //     const token = localStorage.getItem("token");
-    //     const response = await axios.get("http://localhost:3000/me", {
-    //         headers: {
-    //             Authorization: `Bearer ${token}`,
-    //         },
-    //     });
-    //     console.log(response.data);
-    //     return response.data;
-    // };
-    // const { data, isLoading, isError, error } = useQuery({
-    //     queryKey: ["user"],
-    //     queryFn: getMe,
-    // });
-    // if (isLoading) {
-    //     return <div>Loading...</div>;
-    // }
-    // if (isError) {
-    //     return (
-    //         <div>
-    //             Error:{" "}
-    //             {error?.response?.data?.message || "Something went wrong"}
-    //         </div>
-    //     );
-    // }
+    const navigate = useNavigate();
 
-    
+    const { data: trips, isLoading, isError } = useGetTrips();
 
-    const upcomingTrips = [
-        {
-            id: 1,
-            destination: "Manali, India",
-            startDate: "Sep 12, 2026",
-            endDate: "Sep 16, 2026",
-            travelers: 2,
-            duration: "4 Days",
-            image: "https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=800&q=80",
-            status: "Upcoming",
-        },
-        {
-            id: 2,
-            destination: "Goa, India",
-            startDate: "Oct 20, 2026",
-            endDate: "Oct 24, 2026",
-            travelers: 3,
-            duration: "4 Days",
-            image: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=800&q=80",
-            status: "Upcoming",
-        },
-    ];
+    const completedTrips = trips?.allTrip?.filter(
+        (trip) => new Date(trip.endDate) < new Date(),
+    );
+
+    const upcomingTrips = trips?.allTrip?.filter(
+        (trip) => new Date(trip.startDate) >= new Date(),
+    );
+
+    if (isLoading) {
+        return <p>Loading...</p>;
+    }
+    if (isError) {
+        return <p>Something Went wrong...</p>;
+    }
+
+    console.log(trips);
+
     const recentTrips = [
         {
             id: 3,
@@ -119,32 +90,6 @@ const Dashboard = () => {
                         </div>
                     </section>
 
-                    {/* <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                        <StatCard
-                            icon={<Compass size={20} />}
-                            label="Total Trips"
-                            value="12"
-                        />
-
-                        <StatCard
-                            icon={<Plane size={20} />}
-                            label="Upcoming Trips"
-                            value="2"
-                        />
-
-                        <StatCard
-                            icon={<MapPin size={20} />}
-                            label="Places Visited"
-                            value="18"
-                        />
-
-                        <StatCard
-                            icon={<Heart size={20} />}
-                            label="Saved Places"
-                            value="24"
-                        />
-                    </section> */}
-
                     <section>
                         <div className="mb-5 flex items-center justify-between">
                             <div>
@@ -158,11 +103,63 @@ const Dashboard = () => {
                             </div>
                         </div>
 
-                        <div className="grid gap-5 grid-cols-2">
-                            {upcomingTrips.map((trip) => (
-                                <TripCard key={trip.id} trip={trip} />
-                            ))}
-                        </div>
+                        {upcomingTrips.length === 0 ? (
+                            <div className=" h-48 text-2xl font-semibold  uppercase flex items-center justify-center  rounded-2xl border border-white bg-gray-900 text-blue-500 ">
+                                There Are No Upcoming Trips
+                            </div>
+                        ) : (
+                            <div className="grid gap-5 grid-cols-2">
+                                {trips.allTrip?.map((trip) => (
+                                    <div className="group  overflow-hidden rounded-2xl border border-white bg-gray-900 transition hover:-translate-y-1 hover:shadow-lg">
+                                        <div className="relative h-48 overflow-hidden">
+                                            <img
+                                                src={trip.image}
+                                                alt={trip.destination}
+                                                className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                                            />
+
+                                            <div className="absolute left-4 top-4 rounded-full bg-white px-3 py-1 text-xs font-semibold text-green-600 ">
+                                                {trip.status}
+                                            </div>
+                                        </div>
+
+                                        <div className="p-5">
+                                            <div className="flex items-start justify-between">
+                                                <div>
+                                                    <h3 className="text-lg font-bold text-white">
+                                                        {trip.destination}
+                                                    </h3>
+
+                                                    <div className="mt-2 flex items-center gap-1.5 text-xs text-slate-500">
+                                                        <CalendarDays
+                                                            size={14}
+                                                        />
+                                                        {trip.startDate} -{" "}
+                                                        {trip.endDate}
+                                                    </div>
+                                                </div>
+
+                                                <button className="rounded-lg p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-700">
+                                                    <ArrowRight size={18} />
+                                                </button>
+                                            </div>
+
+                                            <div className="mt-5 flex items-center gap-5 border-t border-slate-100 pt-4">
+                                                <div className="flex items-center gap-1.5 text-xs text-slate-500">
+                                                    <Clock3 size={14} />
+                                                    {trip.duration}
+                                                </div>
+
+                                                <div className="flex items-center gap-1.5 text-xs text-slate-500">
+                                                    <Users size={14} />
+                                                    {trip.travelers} Travelers
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                     </section>
 
                     <section className="grid grid-cols-1 gap-6 lg:grid-cols-3">
@@ -178,40 +175,49 @@ const Dashboard = () => {
                                     </p>
                                 </div>
 
-                                <button className="text-sm font-semibold text-blue-600">
+                                <button
+                                    onClick={() => navigate("/journey")}
+                                    className="cursor-pointer text-sm font-semibold text-blue-600"
+                                >
                                     View all
                                 </button>
                             </div>
 
-                            <div>
-                                {recentTrips.map((trip) => (
-                                    <div
-                                        key={trip.id}
-                                        className="flex items-center justify-between py-4 "
-                                    >
-                                        <div className="flex items-center gap-3">
-                                            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
-                                                <MapPin size={18} />
+                            {completedTrips.length == 0 ? (
+                                <div className=" h-48 text-2xl font-semibold  uppercase flex items-center justify-center  rounded-2xl border border-white bg-gray-900 text-blue-500 ">
+                                    You Don't Have any recenet trip
+                                </div>
+                            ) : (
+                                <div>
+                                    {completedTrips.map((trip) => (
+                                        <div
+                                            key={trip.id}
+                                            className="flex items-center justify-between py-4 "
+                                        >
+                                            <div className="flex items-center gap-3">
+                                                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+                                                    <MapPin size={18} />
+                                                </div>
+
+                                                <div>
+                                                    <p className="text-sm font-semibold text-white">
+                                                        {trip.destination}
+                                                    </p>
+
+                                                    <p className="mt-1 text-xs text-white/50">
+                                                        {trip.date} •{" "}
+                                                        {trip.duration}
+                                                    </p>
+                                                </div>
                                             </div>
 
-                                            <div>
-                                                <p className="text-sm font-semibold text-white">
-                                                    {trip.destination}
-                                                </p>
-
-                                                <p className="mt-1 text-xs text-white/50">
-                                                    {trip.date} •{" "}
-                                                    {trip.duration}
-                                                </p>
-                                            </div>
+                                            <button className="text-xs font-semibold text-blue-600">
+                                                View
+                                            </button>
                                         </div>
-
-                                        <button className="text-xs font-semibold text-blue-600">
-                                            View
-                                        </button>
-                                    </div>
-                                ))}
-                            </div>
+                                    ))}
+                                </div>
+                            )}
                         </div>
 
                         {/* Quick Action */}
@@ -271,54 +277,11 @@ const Dashboard = () => {
 //     );
 // };
 
-const TripCard = ({ trip }) => {
-    return (
-        <div className="group overflow-hidden rounded-2xl border border-white bg-gray-900 transition hover:-translate-y-1 hover:shadow-lg">
-            <div className="relative h-48 overflow-hidden">
-                <img
-                    src={trip.image}
-                    alt={trip.destination}
-                    className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                />
+// const TripCard = ({ trip }) => {
+//     return (
 
-                <div className="absolute left-4 top-4 rounded-full bg-white px-3 py-1 text-xs font-semibold text-green-600 ">
-                    {trip.status}
-                </div>
-            </div>
-
-            <div className="p-5">
-                <div className="flex items-start justify-between">
-                    <div>
-                        <h3 className="text-lg font-bold text-white">
-                            {trip.destination}
-                        </h3>
-
-                        <div className="mt-2 flex items-center gap-1.5 text-xs text-slate-500">
-                            <CalendarDays size={14} />
-                            {trip.startDate} - {trip.endDate}
-                        </div>
-                    </div>
-
-                    <button className="rounded-lg p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-700">
-                        <ArrowRight size={18} />
-                    </button>
-                </div>
-
-                <div className="mt-5 flex items-center gap-5 border-t border-slate-100 pt-4">
-                    <div className="flex items-center gap-1.5 text-xs text-slate-500">
-                        <Clock3 size={14} />
-                        {trip.duration}
-                    </div>
-
-                    <div className="flex items-center gap-1.5 text-xs text-slate-500">
-                        <Users size={14} />
-                        {trip.travelers} Travelers
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-};
+//     );
+// };
 
 const QuickAction = ({ icon, title, description }) => {
     return (

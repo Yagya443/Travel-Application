@@ -1,45 +1,52 @@
 import React from "react";
 import { Globe2, MapPin } from "lucide-react";
 import Spline from "@splinetool/react-spline";
+import { useGetTrips } from "../../Hooks/trip.hooks";
 
 const Journey = () => {
-    const countries = [
-        {
-            name: "India",
-            flag: "🇮🇳",
-            places: "Mumbai, Goa, Manali",
-        },
-        {
-            name: "France",
-            flag: "🇫🇷",
-            places: "Paris, Nice",
-        },
-        {
-            name: "Japan",
-            flag: "🇯🇵",
-            places: "Tokyo, Kyoto",
-        },
-        {
-            name: "Italy",
-            flag: "🇮🇹",
-            places: "Rome, Venice",
-        },
-        {
-            name: "Switzerland",
-            flag: "🇨🇭",
-            places: "Zurich, Interlaken",
-        },
-        {
-            name: "Australia",
-            flag: "🇦🇺",
-            places: "Sydney, Melbourne",
-        },
-        {
-            name: "United States",
-            flag: "🇺🇸",
-            places: "New York, California",
-        },
-    ];
+    // const countries = [
+    //     {
+    //         name: "India",
+    //         flag: "🇮🇳",
+    //         places: "Mumbai, Goa, Manali",
+    //     },
+    //     {
+    //         name: "France",
+    //         flag: "🇫🇷",
+    //         places: "Paris, Nice",
+    //     },
+    //     {
+    //         name: "Japan",
+    //         flag: "🇯🇵",
+    //         places: "Tokyo, Kyoto",
+    //     },
+    //     {
+    //         name: "Italy",
+    //         flag: "🇮🇹",
+    //         places: "Rome, Venice",
+    //     },
+    //     {
+    //         name: "Switzerland",
+    //         flag: "🇨🇭",
+    //         places: "Zurich, Interlaken",
+    //     },
+    //     {
+    //         name: "Australia",
+    //         flag: "🇦🇺",
+    //         places: "Sydney, Melbourne",
+    //     },
+    //     {
+    //         name: "United States",
+    //         flag: "🇺🇸",
+    //         places: "New York, California",
+    //     },
+    // ];
+
+    const { data: trips, isLoading, isError } = useGetTrips();
+
+    const completedTrips = trips?.allTrip?.filter(
+        (trip) => new Date(trip.endDate) < new Date(),
+    );
 
     return (
         <div className="min-h-screen bg-gray-800 text-slate-900 px-6 py-20 ">
@@ -105,41 +112,51 @@ const Journey = () => {
                             </div>
                         </div>
 
-                        <div className="max-h-105 space-y-2 pr-2 text-white scrollbar-thumb-sky-600 overflow-y-scroll">
-                            {countries.map((country, index) => (
-                                <div
-                                    key={country.name}
-                                    className="group flex cursor-pointer items-center justify-between rounded-2xl p-3 transition border-2 border-transparent hover:border-gray-50"
-                                >
-                                    <div className="flex items-center gap-4 ">
-
-                                        <span className="w-5 text-xs font-medium text-slate-400">
-                                            {String(index + 1).padStart(2, "0")}
-                                        </span>
-
-                                        <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gray-700 text-2xl">
-                                            {country.flag}
-                                        </div>
-
-                                        {/* Country */}
-                                        <div>
-                                            <h3 className="font-semibold">
-                                                {country.name}
-                                            </h3>
-
-                                            <div className="mt-1 flex items-center gap-1 text-xs">
-                                                <MapPin size={12} />
-                                                {country.places}
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {/* Arrow */}
-                                    <span className="text-slate-300 transition group-hover:translate-x-1 group-hover:text-blue-600">
-                                        →
-                                    </span>
+                        <div className="max-h-105 space-y-2 pr-2 text-white">
+                            {completedTrips.length == 0 ? (
+                                <div className=" text-2xl font-semibold  uppercase flex items-center justify-center  rounded-2xl bg-gray-900 text-blue-500 ">
+                                    You Don't Have any recenet trip
                                 </div>
-                            ))}
+                            ) : (
+                                <div>
+                                    {completedTrips.map((country, index) => (
+                                        <div
+                                            key={country.name}
+                                            className="group flex cursor-pointer items-center justify-between rounded-2xl p-3 transition border-2 border-transparent hover:border-gray-50"
+                                        >
+                                            <div className="flex items-center gap-4 ">
+                                                <span className="w-5 text-xs font-medium text-slate-400">
+                                                    {String(index + 1).padStart(
+                                                        2,
+                                                        "0",
+                                                    )}
+                                                </span>
+
+                                                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gray-700 text-2xl">
+                                                    {country.flag}
+                                                </div>
+
+                                                {/* Country */}
+                                                <div>
+                                                    <h3 className="font-semibold">
+                                                        {country.name}
+                                                    </h3>
+
+                                                    <div className="mt-1 flex items-center gap-1 text-xs">
+                                                        <MapPin size={12} />
+                                                        {country.places}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* Arrow */}
+                                            <span className="text-slate-300 transition group-hover:translate-x-1 group-hover:text-blue-600">
+                                                →
+                                            </span>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
