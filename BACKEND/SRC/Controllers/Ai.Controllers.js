@@ -78,3 +78,4 @@ const suggestLocation = async (req, res) => {
 };
 
 module.exports = { suggestLocation };
+
