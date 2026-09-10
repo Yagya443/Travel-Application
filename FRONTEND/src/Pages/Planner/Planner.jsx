@@ -6,7 +6,6 @@ import ExperienceSection from "./ExperienceSection";
 import MissionPreview from "./MissionPreview";
 
 const RouteSynthesis = () => {
-    const planner = useRoutePlanner();
 
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
@@ -16,8 +15,6 @@ const RouteSynthesis = () => {
     const [maxBudget, setMaxBudget] = useState(0);
     const [selected, setSelected] = useState([]);
     const [destination, setDestination] = useState("");
-    const [duration, setDuration] = useState(null);
-    const [unitCount, setUnitCount] = useState(null);
     
      const toggleExperience = (id) => {
         setSelected((prev) =>
@@ -54,10 +51,6 @@ const RouteSynthesis = () => {
                     setAdults={setAdults}
                     setChildren={setChildren}
                     children={children}
-                    // increaseAdults={increaseAdults}
-                    // decreaseAdults={decreaseAdults}
-                    // increaseChildren={increaseChildren}
-                    // decreaseChildren={decreaseChildren}
                     minBudget={minBudget}
                     maxBudget={maxBudget}
                     setMinBudget={setMinBudget}
@@ -65,6 +58,7 @@ const RouteSynthesis = () => {
                     selected={selected}
                 />
             </div>
+            
         </main>
     );
 };

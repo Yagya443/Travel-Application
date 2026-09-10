@@ -29,7 +29,7 @@ const Audit = () => {
                     setUnitCount={setUnitCount}
                 />
 
-                <section className="px-8 py-6 lg:px-14 bg-gray-900 rounded-3xl mr-4 mt-8">
+                <section className="px-8 py-6 lg:px-14 border-2 rounded-2xl mr-4 mt-8">
                     <FinancialAudit />
                 </section>
             </div>

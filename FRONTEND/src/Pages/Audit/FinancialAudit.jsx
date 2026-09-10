@@ -47,8 +47,8 @@ const FinancialAudit = () => {
             </div>
 
             <div className="bg-blue-500/10 mt-8 rounded-2xl min-h-[200px] flex items-center justify-center flex-col ">
-                <BsStars size={40} fill="blue" />
-                <h3 className="text-[20px] tracking-wide font-semibold italic">SYNTHESIZE AI INTEL</h3>
+                <BsStars size={30} fill="blue" />
+                <h3 className="text-[20px] mt-2 tracking-wide font-semibold italic">SYNTHESIZE AI INTEL</h3>
                 <p className="text-blue-500 text-[10px] tracking-widest ">EXECUTE NEUTRAL LINK FOR OPTIMIZATION</p>
             </div>
         </div>
