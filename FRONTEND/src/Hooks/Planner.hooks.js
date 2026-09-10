@@ -45,10 +45,10 @@ const usePlanner = () => {
             maxBudget,
             selected,
         };
-
-        console.log("Generating route:", plannerData);
-
         // API call will eventually go here
+
+        // createTrip(plannerData);
+
     };
 
     return {

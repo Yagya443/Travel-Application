@@ -5,6 +5,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const userRoutes=require("./SRC/Routes/User.Routes")
 const tripRoutes=require("./SRC/Routes/Trip.Routes")
+const aiRoutes=require("./SRC/Routes/AI.Routes")
 
 const app = express();
 app.use(cors({}));
@@ -12,6 +13,7 @@ app.use(express.json());
 
 app.use("/", userRoutes);
 app.use("/trip", tripRoutes);
+app.use("/ai", aiRoutes);
 
 const connectDB = async () => {
     try {

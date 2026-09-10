@@ -19,6 +19,7 @@ const Dashboard = () => {
     const navigate = useNavigate();
 
     const { data: trips, isLoading, isError } = useGetTrips();
+    
 
     const completedTrips = trips?.allTrip?.filter(
         (trip) => new Date(trip.endDate) < new Date(),
@@ -35,28 +36,7 @@ const Dashboard = () => {
         return <p>Something Went wrong...</p>;
     }
 
-    console.log(trips);
 
-    const recentTrips = [
-        {
-            id: 3,
-            destination: "Jaipur, India",
-            date: "Aug 02, 2026",
-            duration: "3 Days",
-        },
-        {
-            id: 4,
-            destination: "Kerala, India",
-            date: "Jul 15, 2026",
-            duration: "5 Days",
-        },
-        {
-            id: 5,
-            destination: "Mumbai, India",
-            date: "Jun 28, 2026",
-            duration: "2 Days",
-        },
-    ];
 
     return (
         <div className="min-h-screen bg-gray-800 text-slate-900">

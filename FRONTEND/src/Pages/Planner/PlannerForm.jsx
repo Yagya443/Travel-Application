@@ -2,6 +2,9 @@ import { ArrowRight, MapPin } from "lucide-react";
 import React from "react";
 import { DateInput } from "../../Components/dateInput";
 import { Counter } from "../../Components/Counter";
+import { FaMinus, FaPlus } from "react-icons/fa";
+import { useGenerateTrip } from "../../Hooks/ai.hooks";
+
 
 const PlannerForm = ({
     destination,
@@ -12,20 +15,43 @@ const PlannerForm = ({
     setEndDate,
     adults,
     children,
-    increaseAdults,
-    decreaseAdults,
-    increaseChildren,
-    decreaseChildren,
+    setAdults,
+    setChildren,
     minBudget,
     maxBudget,
     setMinBudget,
     setMaxBudget,
-    generateRoute,
+    selected
 }) => {
+
+    const { mutate: generateTrip, isPending } = useGenerateTrip();
+
+    const handleGenerateTrip = () => {
+        const tripData = {
+            destination,
+            startDate,
+            endDate,
+            adults,
+            children,
+            minBudget,
+            maxBudget,
+            selected,
+        };
+
+        generateTrip(tripData, {
+            onSuccess: (data) => {
+                console.log("AI Response:", data.recommendation);
+            },
+
+            onError: (error) => {
+                console.log("AI Error:", error);
+            },
+        });
+    };
+
     return (
         <section className="px-7 py-5">
             <div className="mb-4">
-
                 <h1 className="text-[21px] font-black italic tracking-tight">
                     ROUTE <span className="text-blue-500">SYNTHESIS</span>
                 </h1>
@@ -58,19 +84,63 @@ const PlannerForm = ({
             </div>
 
             <div className="mb-6 grid grid-cols-2 gap-3">
-                <Counter
-                    label="ADULT UNITS"
-                    value={adults}
-                    decrease={decreaseAdults}
-                    increase={increaseAdults}
-                />
+                <div className="rounded-md border border-white/[0.07] bg-[#111213] px-4 py-1">
+                    <p className="mb-1 text-center text-[8px] font-semibold tracking-[0.14em] text-gray-600">
+                        Adults
+                    </p>
 
-                <Counter
-                    label="CHILD UNITS"
-                    value={children}
-                    decrease={decreaseChildren}
-                    increase={increaseChildren}
-                />
+                    <div className="flex items-center justify-between">
+                        <button
+                            onClick={() => {
+                                setAdults(Math.max(1, adults - 1));
+                            }}
+                            className="text-gray-500 transition hover:text-white"
+                        >
+                            <FaMinus size={11} />
+                        </button>
+
+                        <span className="text-[12px] font-bold">{adults}</span>
+
+                        <button
+                            onClick={() => {
+                                setAdults(Math.max(1, adults + 1));
+                            }}
+                            className="text-gray-500 transition hover:text-white"
+                        >
+                            <FaPlus size={11} />
+                        </button>
+                    </div>
+                </div>
+
+                <div className="rounded-md border border-white/[0.07] bg-[#111213] px-4 py-1">
+                    <p className="mb-1 text-center text-[8px] font-semibold tracking-[0.14em] text-gray-600">
+                        Children
+                    </p>
+
+                    <div className="flex items-center justify-between">
+                        <button
+                            onClick={() => {
+                                setChildren(Math.max(0, children - 1));
+                            }}
+                            className="text-gray-500 transition hover:text-white"
+                        >
+                            <FaMinus size={11} />
+                        </button>
+
+                        <span className="text-[12px] font-bold">
+                            {children}
+                        </span>
+
+                        <button
+                            onClick={() => {
+                                setChildren(children + 1);
+                            }}
+                            className="text-gray-500 transition hover:text-white"
+                        >
+                            <FaPlus size={11} />
+                        </button>
+                    </div>
+                </div>
             </div>
 
             <div className="mb-8">
@@ -107,18 +177,9 @@ const PlannerForm = ({
             {/* Generate button */}
             <button
                 className="group flex h-10 w-full items-center justify-center gap-3 rounded-md bg-blue-600 text-[9px] font-black tracking-[0.12em] transition hover:bg-blue-500 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)] active:scale-[0.99]"
-                onClick={() => {
-                    console.log({
-                        destination,
-                        startDate,
-                        endDate,
-                        adults,
-                        children,
-                        minBudget,
-                        maxBudget,
-                        selected,
-                    });
-                }}
+                onClick={
+                    handleGenerateTrip
+                }
             >
                 INITIALIZE GENERATION
                 <ArrowRight

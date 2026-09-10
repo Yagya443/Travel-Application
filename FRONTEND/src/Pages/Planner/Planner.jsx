@@ -8,42 +8,61 @@ import MissionPreview from "./MissionPreview";
 const RouteSynthesis = () => {
     const planner = useRoutePlanner();
 
+    const [startDate, setStartDate] = useState("");
+    const [endDate, setEndDate] = useState("");
+    const [adults, setAdults] = useState(1);
+    const [children, setChildren] = useState(0);
+    const [minBudget, setMinBudget] = useState(0);
+    const [maxBudget, setMaxBudget] = useState(0);
+    const [selected, setSelected] = useState([]);
+    const [destination, setDestination] = useState("");
+    const [duration, setDuration] = useState(null);
+    const [unitCount, setUnitCount] = useState(null);
+    
+     const toggleExperience = (id) => {
+        setSelected((prev) =>
+            prev.includes(id) ? prev.filter((expId)=> expId!==id) : [...prev, id]
+        );
+    };
+
     return (
         <main className="min-h-screen bg-gray-800 text-white overflow-hidden pt-18">
-            <div className="grid grid-cols-[950px_1fr]">
+            <div className="grid lg:grid-cols-[minmax(0,1fr)_400px] grid-cols-1">
                 <section className="px-8 py-6 lg:px-14">
                     <ExperienceSection
-                        selected={planner.selected}
-                        toggleExperience={planner.toggleExperience}
+                        selected={selected}
+                        toggleExperience={toggleExperience}
                     />
 
                     <MissionPreview
-                        destination={planner.destination}
-                        adults={planner.adults}
-                        children={planner.children}
-                        startDate={planner.startDate}
-                        endDate={planner.endDate}
+                        destination={destination}
+                        adults={adults}
+                        children={children}
+                        startDate={startDate}
+                        endDate={endDate}
                     />
                 </section>
 
                 <PlannerForm
-                    destination={planner.destination}
-                    setDestination={planner.setDestination}
-                    startDate={planner.startDate}
-                    setStartDate={planner.setStartDate}
-                    endDate={planner.endDate}
-                    setEndDate={planner.setEndDate}
-                    adults={planner.adults}
-                    children={planner.children}
-                    increaseAdults={planner.increaseAdults}
-                    decreaseAdults={planner.decreaseAdults}
-                    increaseChildren={planner.increaseChildren}
-                    decreaseChildren={planner.decreaseChildren}
-                    minBudget={planner.minBudget}
-                    maxBudget={planner.maxBudget}
-                    setMinBudget={planner.setMinBudget}
-                    setMaxBudget={planner.setMaxBudget}
-                    generateRoute={planner.generateRoute}
+                    destination={destination}
+                    setDestination={setDestination}
+                    startDate={startDate}
+                    setStartDate={setStartDate}
+                    endDate={endDate}
+                    setEndDate={setEndDate}
+                    adults={adults}
+                    setAdults={setAdults}
+                    setChildren={setChildren}
+                    children={children}
+                    // increaseAdults={increaseAdults}
+                    // decreaseAdults={decreaseAdults}
+                    // increaseChildren={increaseChildren}
+                    // decreaseChildren={decreaseChildren}
+                    minBudget={minBudget}
+                    maxBudget={maxBudget}
+                    setMinBudget={setMinBudget}
+                    setMaxBudget={setMaxBudget}
+                    selected={selected}
                 />
             </div>
         </main>

@@ -3,11 +3,7 @@ import { experiences } from "../../Data/experiences";
 import { LuLayers } from "react-icons/lu";
 
 const ExperienceSection = ({ selected, toggleExperience }) => {
-
-    console.log(selected);
-    console.log(experiences);
     
-
     return (
         <>
             <div className="mb-5 flex items-center justify-between">

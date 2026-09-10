@@ -14,7 +14,7 @@ const FinancialForm = ({
     
 
     return (
-        <section className="px-7 py-5">
+        <section className="px-7 py-5 bg-red-300">
             <div className="mb-4">
                 <h1 className="text-[21px] font-black italic tracking-tight">
                     ROUTE <span className="text-blue-500">SYNTHESIS</span>

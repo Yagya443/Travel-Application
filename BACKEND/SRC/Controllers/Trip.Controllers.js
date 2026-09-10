@@ -62,8 +62,7 @@ const getTripById = async (req, res) => {
 
         const getTrip=await Trip.findById(id)
 
-        return res.status(200).json(trip);
-
+        return res.status(200).json(getTrip);
 
     } catch (error) {
         res.status(401).json({ message: "Something went wrong in deleting" });
@@ -96,7 +95,6 @@ const deleteTrip = async (req, res) => {
 const editTrip = async (req, res) => {
     try {
         const { id } = req.params;
-
         const editTrip = await Trip.findOneAndUpdate(
             {
                 id,
