@@ -1,5 +1,6 @@
 import { ArrowRight, Calendar, MapPin } from "lucide-react";
 import { GoPerson } from "react-icons/go";
+import { useGenerateAudit } from "../../Hooks/ai.hooks";
 
 const FinancialForm = ({
     destination,
@@ -9,9 +10,23 @@ const FinancialForm = ({
     unitCount,
     setUnitCount,
 }) => {
+    // handleAuditTrip
+    const {mutate:generateAudit,isPending}=useGenerateAudit()
 
-    console.log(duration,unitCount);
-    
+    const handleAuditTrip = () => {
+        const auditData = {
+            destination,
+            setDestination,
+            duration,
+            setDuration,
+            unitCount,
+            setUnitCount,
+        };
+        
+
+
+
+    };
 
     return (
         <section className="px-7 py-5 ">
@@ -94,7 +109,7 @@ const FinancialForm = ({
             </div>
 
             {/* Generate button */}
-            <button
+            {/* <button
                 className="group flex h-10 w-full items-center justify-center gap-3 rounded-md bg-blue-600 text-[9px] font-black tracking-[0.12em] transition hover:bg-blue-500 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)] active:scale-[0.99]"
                 onClick={() => {
                     console.log({
@@ -108,6 +123,18 @@ const FinancialForm = ({
                         selected,
                     });
                 }}
+            >
+                INITIALIZE GENERATION
+                <ArrowRight
+                    size={14}
+                    className="transition-transform group-hover:translate-x-1"
+                />
+            </button> */}
+
+            <button
+                className={`group flex h-10 w-full items-center justify-center gap-3 rounded-md bg-blue-600 text-[12px] font-black transition hover:bg-blue-500`}
+                // onClick={handleGenerateTrip}
+                // disabled={isPending}
             >
                 INITIALIZE GENERATION
                 <ArrowRight

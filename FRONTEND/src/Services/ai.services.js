@@ -14,3 +14,17 @@ export const generateTrip = async (tripData) => {
 
     return response.data;
 };
+export const generateAudit = async (auditData) => {
+   
+    const response = await axios.post(
+        `${import.meta.env.VITE_RENDER_URL}/ai/generateAudit`,
+        auditData,
+        {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+        },
+    );
+
+    return response.data;
+};

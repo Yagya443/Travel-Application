@@ -23,9 +23,8 @@ const PlannerForm = ({
     setMaxBudget,
     selected,
 }) => {
-    const { mutate: generateTrip, isPending } = useGenerateTrip();
     const [recommendation, setRecommendation] = useState("");
-    console.log(recommendation);
+    const { mutate: generateTrip, isPending } = useGenerateTrip();
 
     const handleGenerateTrip = () => {
         const tripData = {
@@ -194,15 +193,17 @@ const PlannerForm = ({
                 </div>
             </div>
             <button
-                className={`group flex h-10 w-full items-center justify-center gap-3 rounded-md bg-blue-600 text-[9px] font-black transition hover:bg-blue-500 ${isPending && "opacity-75"}`}
+                className={`group flex h-10 w-full items-center justify-center gap-3 rounded-md bg-blue-600 text-[12px] font-black transition hover:bg-blue-500 ${isPending && "opacity-75"}`}
                 onClick={handleGenerateTrip}
                 disabled={isPending}
             >
                 {isPending ? "GENERATING..." : "INITIALIZE GENERATION"}
-                <ArrowRight
-                    size={14}
-                    className="transition-transform group-hover:translate-x-1"
-                />
+                {!isPending && (
+                    <ArrowRight
+                        size={14}
+                        className="transition-transform group-hover:translate-x-1"
+                    />
+                )}
             </button>
             {recommendation && (
                 <section className="mt-8 space-y-6">
@@ -221,7 +222,7 @@ const PlannerForm = ({
                         </div>
                     </div>
                     <div className="space-y-5">
-                        {recommendation.recommended_destinations.map(
+                        {recommendation.recommended_destinations?.map(
                             (destination, index) => (
                                 <div
                                     key={destination.name}
@@ -274,7 +275,7 @@ const PlannerForm = ({
                                         <p className="mb-3 text-[10px] font-black uppercase tracking-widest text-gray-500">
                                             Things you can do
                                         </p>
-                                        <div className="flex flex-wrap gap-2">
+                                        <div classNam   e="flex flex-wrap gap-2">
                                             {destination.main_activities.map(
                                                 (activity) => (
                                                     <span
@@ -288,7 +289,7 @@ const PlannerForm = ({
                                         </div>
                                     </div>
                                     {/* Buttons */}
-                                    <button className="rounded-lg cursor-pointer bg-blue-600 px-4 py-2 text-xs font-bold text-white transition hover:bg-blue-500">
+                                    <button className="mt-3 rounded-lg cursor-pointer bg-blue-600 px-4 py-2 text-xs font-bold text-white transition hover:bg-blue-500">
                                         Plan This Trip →
                                     </button>
                                 </div>
@@ -298,9 +299,6 @@ const PlannerForm = ({
                     {/* Travel Tips */}
                     <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
                         <div className="flex items-center gap-3">
-                            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-yellow-500/10">
-                                💡
-                            </div>
                             <div>
                                 <h3 className="font-bold text-white">
                                     Travel Tips
@@ -311,15 +309,16 @@ const PlannerForm = ({
                             </div>
                         </div>
                         <div className="mt-5 space-y-3">
-                            {recommendation.travel_tips.map((tip, index) => (
+                            {recommendation.travel_tips?.map((tip, index) => (
                                 <div
                                     key={index}
-                                    className="flex gap-3 rounded-xl border border-white/5 bg-white/[0.02] p-4"
+                                    className="flex gap-3 rounded-xl items-center border border-white/5 bg-white/[0.02] p-4"
                                 >
-                                    <span className="text-sm text-blue-400">
+                                    <span className="text-sm text-blue-400 ">
                                         {String(index + 1).padStart(2, "0")}
                                     </span>
-                                    <p className="text-sm leading-6 text-gray-400">
+                                
+                                    <p className="text-sm leading-6 text-gray-400 border-l-2 pl-4 text-justify">
                                         {tip}
                                     </p>
                                 </div>

@@ -50,10 +50,34 @@ const suggestLocation = async (req, res) => {
             Maximum Budget: ${maxBudget}
             Preferred Experiences: ${selected.join(", ")}
 
-            
+            Structure
+            {
+                recommended_destinations: [
+                    {
+                        name:
+                        match_score: 
+                        reason_for_match:
+                        main_activities: [
+                            
+                        ]
+                    },
+                    {
+                        name: 
+                        match_score: 
+                        reason_for_match: 
+                        main_activities: [
+                            (In 7,10 words each)
+                        ]
+                    }
+                ],
+
+                travel_tips: [
+                    
+                ]
+            }
 
             TRAVEL TIPS
-            - Provide 2-4 useful tips for this trip each of 100 words and make sure you dont use ** in that.
+            - Provide 2-4 useful tips for this trip each of 30,40 words and make sure you dont use ** in that.
 
             Do not mention that you are an AI.
             `);

@@ -3,11 +3,21 @@ import { IoIosFlash } from "react-icons/io";
 import { AiFillSafetyCertificate } from "react-icons/ai";
 import { FaPencilAlt } from "react-icons/fa";
 import { BsStars } from "react-icons/bs";
+import { useState } from "react";
 
 const FinancialAudit = () => {
+
+    const [result,setResult]=useState("")
+
     return (
-        <div>
-            <div className="grid grid-cols-3 gap-4  justify-between">
+        
+        <>
+        {
+            result
+            
+             ?
+             <>
+             <div className="grid grid-cols-3 gap-4  justify-between">
                 <div className="border rounded-xl flex items-center py-2 px-4 gap-4">
                     <CiGlobe size={25} fill="blue" />
                     <div>
@@ -51,7 +61,14 @@ const FinancialAudit = () => {
                 <h3 className="text-[20px] mt-2 tracking-wide font-semibold italic">SYNTHESIZE AI INTEL</h3>
                 <p className="text-blue-500 text-[10px] tracking-widest ">EXECUTE NEUTRAL LINK FOR OPTIMIZATION</p>
             </div>
-        </div>
+             </>
+            :
+            <>
+                <div className="absolute left-1/2 top-1/2 -translate-1/2 font-mono text-2xl">Awaiting Parameters</div>
+            </>
+        }
+            
+        </>
     );
 };
 
