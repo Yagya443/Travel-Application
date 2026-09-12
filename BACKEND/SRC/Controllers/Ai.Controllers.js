@@ -1,6 +1,6 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY2);
 
 const suggestLocation = async (req, res) => {
     try {
@@ -101,5 +101,117 @@ const suggestLocation = async (req, res) => {
     }
 };
 
-module.exports = { suggestLocation };
+const AuditReview = async (req, res) => {
+    try {
+        const { destination, duration, unitCount, operationalTier } = req.body;
 
+         
+        const model = genAI.getGenerativeModel({
+            model: "gemini-2.5-flash",
+        });
+
+        const output = await model.generateContent(`
+            You are an AI travel plan auditor.
+
+            Analyze the following travel plan:
+
+            Destination: ${destination}
+            Duration: ${duration} days
+            Number of travelers: ${unitCount}
+            Budget: ${operationalTier}
+
+            Evaluate the trip for:
+            - Budget efficiency
+            - Duration suitability
+            - Expense distribution
+            - Potential problems
+            - Safety margin
+            - Overall feasibility
+
+            IMPORTANT:
+            Return ONLY valid JSON.
+
+            Use exactly this structure:
+
+            {
+            "overall_score": 0,
+            "verdict": "",
+            "summary": "",
+
+            "key_metrics": {
+                "daily_burn": 0,
+                "total_cost": 0,
+                "safety_buffer": 0
+            },
+
+            "expense_breakdown": [
+                {
+                "category": "Lodging",
+                "amount": 0
+                },
+                {
+                "category": "Dining",
+                "amount": 0
+                },
+                {
+                "category": "Transport",
+                "amount": 0
+                },
+                {
+                "category": "Insurance",
+                "amount": 0
+                },
+                {
+                "category": "Extras",
+                "amount": 0
+                },
+                {
+                "category": "Buffer",
+                "amount": 0
+                }
+            ],
+
+            "duration_analysis": {
+                "planned_duration": 0,
+                "recommended_duration": 0,
+                "status": "",
+                "analysis": ""
+            },
+
+            "issues": [],
+
+            "suggestions": [],
+
+            "travel_tips": []
+            }
+
+            Rules:
+            - overall_score must be between 0 and 100.
+            - All expense amounts must be numbers.
+            - expense_breakdown should represent the estimated total trip cost.
+            - daily_burn should represent estimated average spending per day.
+            - safety_buffer should be a percentage.
+            - Do not invent precise costs when insufficient information is available.
+            - Keep explanations concise.
+            - Return JSON only.
+        `);
+
+        
+        const answer = output.response.text();
+        const cleanedText = answer
+            .replace(/```json/g, "")
+            .replace(/```/g, "")
+            .trim();
+        const result = JSON.parse(cleanedText);
+
+        res.status(200).json({
+            result,
+        });
+    } catch (error) {
+        console.log(error);
+
+        res.status(400).json({ message: error.message });
+    }
+};
+
+module.exports = { suggestLocation, AuditReview };

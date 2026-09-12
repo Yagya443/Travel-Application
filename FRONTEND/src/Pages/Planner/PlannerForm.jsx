@@ -24,7 +24,7 @@ const PlannerForm = ({
     selected,
 }) => {
     const [recommendation, setRecommendation] = useState("");
-    const { mutate: generateTrip, isPending } = useGenerateTrip();
+    const { mutate, isPending } = useGenerateTrip();
 
     const handleGenerateTrip = () => {
         const tripData = {
@@ -37,7 +37,7 @@ const PlannerForm = ({
             maxBudget,
             selected,
         };
-        generateTrip(tripData, {
+        mutate(tripData, {
             onSuccess: (data) => {
                 setRecommendation(data.recommendation);
             },
@@ -207,7 +207,6 @@ const PlannerForm = ({
             </button>
             {recommendation && (
                 <section className="mt-8 space-y-6">
-                    {/* Header */}
                     <div className="rounded-2xl border border-white/50 p-6">
                         <div className="flex items-center gap-3">
                             <div>
@@ -228,10 +227,8 @@ const PlannerForm = ({
                                     key={destination.name}
                                     className="relative overflow-hidden rounded-2xl border  p-6 transition duration-300 hover:border-blue-500/95 hover:bg-gray-900/50"
                                 >
-                                    {/* Top section */}
                                     <div className="flex items-start justify-between gap-4">
                                         <div className="flex gap-4 items-center">
-                                            {/* Ranking */}
                                             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-600/10 text-sm font-black text-blue-400">
                                                 #{index + 1}
                                             </div>
@@ -240,7 +237,6 @@ const PlannerForm = ({
                                                 {destination.name}
                                             </h3>
                                         </div>
-                                        {/* Match Score */}
                                         <div className="text-right">
                                             <p className="text-2xl font-black text-blue-400">
                                                 {destination.match_score}%
@@ -250,7 +246,6 @@ const PlannerForm = ({
                                             </p>
                                         </div>
                                     </div>
-                                    {/* Match Progress */}
                                     <div className="mt-5">
                                         <div className="h-1.5 overflow-hidden rounded-full bg-white/10">
                                             <div
@@ -261,7 +256,6 @@ const PlannerForm = ({
                                             />
                                         </div>
                                     </div>
-                                    {/* Reason */}
                                     <div className="mt-5">
                                         <p className="mb-2 text-[10px] font-black uppercase tracking-widest text-blue-400">
                                             Why it matches you
@@ -270,7 +264,6 @@ const PlannerForm = ({
                                             {destination.reason_for_match}
                                         </p>
                                     </div>
-                                    {/* Activities */}
                                     <div className="mt-5">
                                         <p className="mb-3 text-[10px] font-black uppercase tracking-widest text-gray-500">
                                             Things you can do
@@ -288,7 +281,6 @@ const PlannerForm = ({
                                             )}
                                         </div>
                                     </div>
-                                    {/* Buttons */}
                                     <button className="mt-3 rounded-lg cursor-pointer bg-blue-600 px-4 py-2 text-xs font-bold text-white transition hover:bg-blue-500">
                                         Plan This Trip →
                                     </button>
@@ -296,7 +288,6 @@ const PlannerForm = ({
                             ),
                         )}
                     </div>
-                    {/* Travel Tips */}
                     <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
                         <div className="flex items-center gap-3">
                             <div>

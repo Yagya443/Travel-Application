@@ -14,6 +14,7 @@ export const generateTrip = async (tripData) => {
 
     return response.data;
 };
+
 export const generateAudit = async (auditData) => {
    
     const response = await axios.post(

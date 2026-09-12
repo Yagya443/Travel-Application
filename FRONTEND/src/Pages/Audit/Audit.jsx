@@ -9,6 +9,8 @@ const Audit = () => {
     const [destination, setDestination] = useState("");
     const [duration, setDuration] = useState(null);
     const [unitCount, setUnitCount] = useState(null);
+    const [operationalTier, setOperationalTier] = useState("Budget");
+    
         
     // const [startDate, setStartDate] = useState("");
     //     const [endDate, setEndDate] = useState("");
@@ -27,6 +29,8 @@ const Audit = () => {
                     setDuration={setDuration}
                     unitCount={unitCount}
                     setUnitCount={setUnitCount}
+                    operationalTier={operationalTier}
+                    setOperationalTier={setOperationalTier}
                 />
 
                 <section className="px-8 py-6 lg:px-14 border-2 rounded-2xl mr-4 mt-8 relative">

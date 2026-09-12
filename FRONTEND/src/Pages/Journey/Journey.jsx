@@ -4,44 +4,6 @@ import Spline from "@splinetool/react-spline";
 import { useGetTrips } from "../../Hooks/trip.hooks";
 
 const Journey = () => {
-    // const countries = [
-    //     {
-    //         name: "India",
-    //         flag: "🇮🇳",
-    //         places: "Mumbai, Goa, Manali",
-    //     },
-    //     {
-    //         name: "France",
-    //         flag: "🇫🇷",
-    //         places: "Paris, Nice",
-    //     },
-    //     {
-    //         name: "Japan",
-    //         flag: "🇯🇵",
-    //         places: "Tokyo, Kyoto",
-    //     },
-    //     {
-    //         name: "Italy",
-    //         flag: "🇮🇹",
-    //         places: "Rome, Venice",
-    //     },
-    //     {
-    //         name: "Switzerland",
-    //         flag: "🇨🇭",
-    //         places: "Zurich, Interlaken",
-    //     },
-    //     {
-    //         name: "Australia",
-    //         flag: "🇦🇺",
-    //         places: "Sydney, Melbourne",
-    //     },
-    //     {
-    //         name: "United States",
-    //         flag: "🇺🇸",
-    //         places: "New York, California",
-    //     },
-    // ];
-
     const { data: trips, isLoading, isError } = useGetTrips();
 
     const completedTrips = trips?.allTrip?.filter(
@@ -113,13 +75,13 @@ const Journey = () => {
                         </div>
 
                         <div className="max-h-105 space-y-2 pr-2 text-white">
-                            {completedTrips.length == 0 ? (
+                            {completedTrips?.length == 0 ? (
                                 <div className=" text-2xl font-semibold  uppercase flex items-center justify-center  rounded-2xl bg-gray-900 text-blue-500 ">
                                     You Don't Have any recenet trip
                                 </div>
                             ) : (
                                 <div>
-                                    {completedTrips.map((country, index) => (
+                                    {completedTrips?.map((country, index) => (
                                         <div
                                             key={country.name}
                                             className="group flex cursor-pointer items-center justify-between rounded-2xl p-3 transition border-2 border-transparent hover:border-gray-50"
