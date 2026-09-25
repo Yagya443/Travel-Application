@@ -3,44 +3,12 @@ import { IoIosFlash } from "react-icons/io";
 import { AiFillSafetyCertificate } from "react-icons/ai";
 import { FaPencilAlt } from "react-icons/fa";
 import { BsStars } from "react-icons/bs";
-import { useState } from "react";
 
-const FinancialAudit = () => {
-
-    // const
-
+const FinancialAudit = ({ result }) => {
     return (
         <>
-            {/* {result ? ( */}
+            {result?.result && (
                 <>
-                    <div className="grid grid-cols-3 gap-4  justify-between">
-                        <div className="border rounded-xl flex items-center py-2 px-4 gap-4">
-                            <CiGlobe size={25} fill="blue" />
-                            <div>
-                                <p className="text-[10px]">Region</p>
-                                <h4 className="font-semibold text-lg">
-                                    United State
-                                </h4>
-                            </div>
-                        </div>
-                        <div className="border rounded-xl flex items-center py-2 px-4 gap-4">
-                            <IoIosFlash size={25} fill="orange" />
-                            <div>
-                                <p className="text-[10px]">Daily Burn</p>
-                                <h4 className="font-semibold text-lg">$400</h4>
-                            </div>
-                        </div>
-                        <div className="border rounded-xl flex items-center py-2 px-4 gap-4">
-                            <AiFillSafetyCertificate size={25} fill="green" />
-                            <div>
-                                <p className="text-[10px]">Safety Margin</p>
-                                <h4 className="font-semibold text-lg">
-                                    15% Buffer
-                                </h4>
-                            </div>
-                        </div>
-                    </div>
-
                     <div className="grid grid-cols-2 min-h-100 gap-4  mt-8 ">
                         <div className="bg-amber-300 py-2 px-4 rounded-3xl">
                             <h2 className="flex items-center gap-2">
@@ -48,31 +16,291 @@ const FinancialAudit = () => {
                             </h2>
                             <div className="bg-gray-300">Hello</div>
                         </div>
-                        <div className="bg-amber-300 py-2 px-4 rounded-3xl">
-                            <h2 className="flex items-center gap-2">
-                                <FaPencilAlt /> Resource Allocation
-                            </h2>
-                            <div className="bg-gray-300">Hello</div>
+                        <div className="rounded-xl border border-gray-800 bg-[#0d0e0f] p-5">
+                            <div className="mb-5">
+                                <p className="text-[9px] font-bold tracking-[0.2em] text-gray-500">
+                                    FINANCIAL DISTRIBUTION
+                                </p>
+
+                                <h2 className="mt-1 text-lg font-black text-white">
+                                    Expense Breakdown
+                                </h2>
+                            </div>
+
+                            <div className="space-y-4">
+                                {result.result.expense_breakdown?.map(
+                                    (expense) => {
+                                        const total =
+                                            result.result.key_metrics
+                                                .total_cost;
+
+                                        const percentage =
+                                            total > 0
+                                                ? (expense.amount / total) * 100
+                                                : 0;
+
+                                        return (
+                                            <div key={expense.category}>
+                                                <div className="mb-2 flex items-center justify-between">
+                                                    <span className="text-xs font-semibold text-gray-300">
+                                                        {expense.category}
+                                                    </span>
+
+                                                    <span className="text-xs font-bold text-white">
+                                                        ${expense.amount}
+                                                    </span>
+                                                </div>
+
+                                                <div className="h-2 overflow-hidden rounded-full bg-gray-800">
+                                                    <div
+                                                        className="h-full rounded-full bg-blue-500 transition-all"
+                                                        style={{
+                                                            width: `${Math.min(
+                                                                percentage,
+                                                                100,
+                                                            )}%`,
+                                                        }}
+                                                    />
+                                                </div>
+
+                                                <p className="mt-1 text-right text-[9px] text-gray-600">
+                                                    {percentage.toFixed(1)}%
+                                                </p>
+                                            </div>
+                                        );
+                                    },
+                                )}
+                            </div>
                         </div>
                     </div>
 
-                    <div className="bg-blue-500/10 mt-8 rounded-2xl min-h-[200px] flex items-center justify-center flex-col ">
-                        <BsStars size={30} fill="blue" />
-                        <h3 className="text-[20px] mt-2 tracking-wide font-semibold italic">
-                            SYNTHESIZE AI INTEL
-                        </h3>
-                        <p className="text-blue-500 text-[10px] tracking-widest ">
-                            EXECUTE NEUTRAL LINK FOR OPTIMIZATION
-                        </p>
-                    </div>
+                    <section className="mt-8 space-y-5">
+                        <div className="grid grid-cols-3 gap-3">
+                            <div className="rounded-xl border flex items-center gap-4  border-gray-800 bg-[#0d0e0f] p-4">
+                                <CiGlobe size={25} fill="blue" />
+                                <div>
+                                    <p className="text-[8px] font-bold tracking-widest text-gray-500">
+                                        DAILY BURN
+                                    </p>
+
+                                    <p className="mt-2 text-xl font-black text-white">
+                                        ${result.result.key_metrics.daily_burn}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className="rounded-xl border flex items-center gap-4 border-gray-800 bg-[#0d0e0f] p-4">
+                                <IoIosFlash size={25} fill="orange" />
+                                <div className="">
+                                    <p className="text-[8px] font-bold tracking-widest text-gray-500">
+                                        TOTAL COST
+                                    </p>
+
+                                    <p className="mt-2 text-xl font-black text-white">
+                                        ${result.result.key_metrics.total_cost}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className="rounded-xl border flex items-center gap-4 border-gray-800 bg-[#0d0e0f] p-4">
+                                <AiFillSafetyCertificate
+                                    size={25}
+                                    fill="green"
+                                />
+                                <div>
+                                    <p className="text-[8px] font-bold tracking-widest text-gray-500">
+                                        SAFETY BUFFER
+                                    </p>
+                                    <p className="mt-2 text-xl font-black">
+                                        {
+                                            result.result.key_metrics
+                                                .safety_buffer
+                                        }
+                                        % Buffer
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="rounded-xl border border-gray-800 bg-[#0d0e0f] p-5">
+                            <div className="flex items-center justify-between">
+                                <div>
+                                    <p className="text-[9px] font-bold tracking-[0.2em] text-gray-500">
+                                        AUDIT SCORE
+                                    </p>
+
+                                    <h2 className="mt-2 text-3xl font-black text-white">
+                                        {result.result.overall_score}
+                                        <span className="text-sm text-gray-500">
+                                            /100
+                                        </span>
+                                    </h2>
+
+                                    <p className="mt-1 text-sm font-semibold text-blue-400">
+                                        {result.result.verdict}
+                                    </p>
+                                </div>
+
+                                <div className="flex h-16 w-16 items-center justify-center rounded-full border-4 border-blue-500">
+                                    <span className="text-sm font-black text-white">
+                                        {result.result.overall_score}%
+                                    </span>
+                                </div>
+                            </div>
+
+                            <p className="mt-5 text-sm leading-6 text-gray-400">
+                                {result.result.summary}
+                            </p>
+                        </div>
+
+                        <div className="rounded-xl border border-gray-800 bg-[#0d0e0f] p-5">
+                            <p className="text-[9px] font-bold tracking-[0.2em] text-gray-500">
+                                DURATION ANALYSIS
+                            </p>
+
+                            <div className="mt-4 grid grid-cols-2 gap-3">
+                                {/* Planned */}
+                                <div className="rounded-lg bg-[#151617] p-4">
+                                    <p className="text-[8px] tracking-widest text-gray-500">
+                                        PLANNED
+                                    </p>
+
+                                    <p className="mt-2 text-xl font-black text-white">
+                                        {
+                                            result.result.duration_analysis
+                                                .planned_duration
+                                        }
+
+                                        <span className="ml-1 text-xs text-gray-500">
+                                            days
+                                        </span>
+                                    </p>
+                                </div>
+
+                                <div className="rounded-lg bg-[#151617] p-4">
+                                    <p className="text-[8px] tracking-widest text-gray-500">
+                                        RECOMMENDED
+                                    </p>
+
+                                    <p className="mt-2 text-xl font-black text-blue-400">
+                                        {
+                                            result.result.duration_analysis
+                                                .recommended_duration
+                                        }
+
+                                        <span className="ml-1 text-xs text-gray-500">
+                                            days
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className="mt-4">
+                                <span className="rounded-full bg-blue-500/10 px-3 py-1 text-[9px] font-bold text-blue-400">
+                                    {result.result.duration_analysis.status}
+                                </span>
+                            </div>
+
+                            <p className="mt-4 text-sm leading-6 text-gray-400">
+                                {result.result.duration_analysis.analysis}
+                            </p>
+                        </div>
+
+                        {result.result.issues?.length > 0 && (
+                            <div className="rounded-xl border border-gray-800 bg-[#0d0e0f] p-5">
+                                <p className="text-[9px] font-bold tracking-[0.2em] text-gray-500">
+                                    DETECTED ISSUES
+                                </p>
+
+                                <div className="mt-4 space-y-3">
+                                    {result.result.issues.map(
+                                        (issue, index) => (
+                                            <div
+                                                key={index}
+                                                className="rounded-lg border border-red-500/10 bg-red-500/5 p-3"
+                                            >
+                                                <p className="text-xs leading-5 text-gray-300">
+                                                    {issue}
+                                                </p>
+                                            </div>
+                                        ),
+                                    )}
+                                </div>
+                            </div>
+                        )}
+
+                        {result.result.suggestions?.length > 0 && (
+                            <div className="rounded-xl border border-gray-800 bg-[#0d0e0f] p-5">
+                                <p className="text-[9px] font-bold tracking-[0.2em] text-gray-500">
+                                    OPTIMIZATION SUGGESTIONS
+                                </p>
+
+                                <div className="mt-4 space-y-3">
+                                    {result.result.suggestions.map(
+                                        (suggestion, index) => (
+                                            <div
+                                                key={index}
+                                                className="flex gap-3"
+                                            >
+                                                <span className="text-xs font-black text-blue-500">
+                                                    {String(index + 1).padStart(
+                                                        2,
+                                                        "0",
+                                                    )}
+                                                </span>
+
+                                                <p className="text-xs leading-5 text-gray-400">
+                                                    {suggestion}
+                                                </p>
+                                            </div>
+                                        ),
+                                    )}
+                                </div>
+                            </div>
+                        )}
+
+                        {result.result.travel_tips?.length > 0 && (
+                            <div className="rounded-xl border border-gray-800 bg-[#0d0e0f] p-5">
+                                <p className="text-[9px] font-bold tracking-[0.2em] text-gray-500">
+                                    AI TRAVEL INTELLIGENCE
+                                </p>
+
+                                <div className="mt-4 space-y-3">
+                                    {result.result.travel_tips.map(
+                                        (tip, index) => (
+                                            <div
+                                                key={index}
+                                                className="flex gap-3"
+                                            >
+                                                <span className="text-[10px] font-black text-blue-500">
+                                                    {String(index + 1).padStart(
+                                                        2,
+                                                        "0",
+                                                    )}
+                                                </span>
+
+                                                <p className="text-xs leading-5 text-gray-400">
+                                                    {tip}
+                                                </p>
+                                            </div>
+                                        ),
+                                    )}
+                                </div>
+                            </div>
+                        )}
+                    </section>
                 </>
-            {/* ) : ( */}
-                {/* <>
-                    <div className="absolute left-1/2 top-1/2 -translate-1/2 font-mono text-2xl">
-                        Awaiting Parameters
-                    </div>
-                </> */}
-            {/* )} */}
+            )}
+
+            <div className="bg-blue-500/10 mt-8 rounded-2xl min-h-50 flex items-center justify-center flex-col ">
+                <BsStars size={30} fill="blue" />
+                <h3 className="text-[20px] mt-2 tracking-wide font-semibold italic">
+                    SYNTHESIZE AI INTEL
+                </h3>
+                <p className="text-blue-500 text-[10px] tracking-widest ">
+                    EXECUTE NEUTRAL LINK FOR OPTIMIZATION
+                </p>
+            </div>
         </>
     );
 };

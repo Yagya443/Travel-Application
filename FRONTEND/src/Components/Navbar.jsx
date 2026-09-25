@@ -14,13 +14,13 @@ const Navbar = () => {
     }
 
     return (
-        <div className="fixed flex gap-2 items-center justify-between bg-gray-700 py-3 px-8 w-screen z-50">
+        <div className="fixed flex gap-2 items-center justify-between bg-gray-700 py-3 px-8 w-screen z-50 md:px-4">
             <div className="flex items-center">
-                <MdTravelExplore size={35} fill={"white"} />
-                <h1 className="text-white text-2xl font-bold">Wix Travel</h1>
+                <MdTravelExplore size={30} fill={"white"} />
+                <h1 className="text-white text-2xl font-bold text-nowrap">Wix Travel</h1>
             </div>
             {storage && (
-                <div className="flex text-white gap-4 border border-white px-1 py-1 rounded-sm text-2xl ">
+                <div className="flex text-white gap-4 border border-white px-1 py-1 rounded-sm text-2xl md:text-xl">
                     <NavLink
                         className={({ isActive }) =>
                             `px-6 rounded-lg ${isActive ? "bg-blue-500" : ""}`

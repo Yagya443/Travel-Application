@@ -187,7 +187,8 @@ const AuditReview = async (req, res) => {
 
             Rules:
             - overall_score must be between 0 and 100.
-            - All expense amounts must be numbers.
+            - All expense amounts must be numbers .
+            - All the expenses should be in dollars
             - expense_breakdown should represent the estimated total trip cost.
             - daily_burn should represent estimated average spending per day.
             - safety_buffer should be a percentage.
