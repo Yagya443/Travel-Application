@@ -2,19 +2,121 @@ import { CiGlobe } from "react-icons/ci";
 import { IoIosFlash } from "react-icons/io";
 import { AiFillSafetyCertificate } from "react-icons/ai";
 import { FaPencilAlt } from "react-icons/fa";
-import { BsStars } from "react-icons/bs";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 
 const FinancialAudit = ({ result }) => {
+    const expenseData = result.result.expense_breakdown.map((expense) => ({
+        name: expense.category,
+        value: expense.amount,
+    }));
+
     return (
         <>
             {result?.result && (
                 <>
+                    <div className="grid grid-cols-3 gap-3">
+                        <div className="rounded-xl border flex items-center gap-4  border-gray-800 bg-[#0d0e0f] p-4">
+                            <CiGlobe size={25} fill="blue" />
+                            <div>
+                                <p className="text-[8px] font-bold tracking-widest text-gray-500">
+                                    DAILY BURN
+                                </p>
+
+                                <p className="mt-2 text-xl font-black text-white">
+                                    ${result.result.key_metrics.daily_burn}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="rounded-xl border flex items-center gap-4 border-gray-800 bg-[#0d0e0f] p-4">
+                            <IoIosFlash size={25} fill="orange" />
+                            <div className="">
+                                <p className="text-[8px] font-bold tracking-widest text-gray-500">
+                                    TOTAL COST
+                                </p>
+
+                                <p className="mt-2 text-xl font-black text-white">
+                                    ${result.result.key_metrics.total_cost}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="rounded-xl border flex items-center gap-4 border-gray-800 bg-[#0d0e0f] p-4">
+                            <AiFillSafetyCertificate size={25} fill="green" />
+                            <div>
+                                <p className="text-[8px] font-bold tracking-widest text-gray-500">
+                                    SAFETY BUFFER
+                                </p>
+                                <p className="mt-2 text-xl font-black">
+                                    {result.result.key_metrics.safety_buffer}%
+                                    Buffer
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                     <div className="grid grid-cols-2 min-h-100 gap-4  mt-8 ">
-                        <div className="bg-amber-300 py-2 px-4 rounded-3xl">
-                            <h2 className="flex items-center gap-2">
-                                <FaPencilAlt /> Resource Allocation
-                            </h2>
-                            <div className="bg-gray-300">Hello</div>
+                        <div className="rounded-xl border border-gray-800 bg-[#0d0e0f] p-5">
+                            <div className="mb-5">
+                                <p className="text-[9px] font-bold tracking-[0.2em] text-gray-500">
+                                    FINANCIAL DISTRIBUTION
+                                </p>
+
+                                <h2 className="mt-1 text-lg font-black text-white">
+                                    Expense Breakdown
+                                </h2>
+                            </div>
+
+                            <div className="flex items-center flex-col gap-6">
+                                {/* CHART */}
+                                <div className="h-64 w-64">
+                                    <ResponsiveContainer
+                                        width="100%"
+                                        height="100%"
+                                    >
+                                        <PieChart>
+                                            <Pie
+                                                data={expenseData}
+                                                dataKey="value"
+                                                nameKey="name"
+                                                cx="50%"
+                                                cy="50%"
+                                                innerRadius={60}
+                                                outerRadius={90}
+                                                paddingAngle={7}
+                                                fill="white"
+                                            ></Pie>
+                                            <Tooltip
+                                                contentStyle={{
+                                                    backgroundColor: "#0d0e0f",
+                                                    border: "1px solid #374151",
+                                                    borderRadius: "8px",
+                                                }}
+                                            />
+                                        </PieChart>
+                                    </ResponsiveContainer>
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-3 border">
+                                    {expenseData.map((expense) => {
+                                        return (
+                                            <div
+                                                key={expense.name}
+                                                className="flex items-center justify-between gap-2 rounded-lg py-1 px-2"
+                                            >
+                                                <span className="text-xs font-semibold text-gray-200">
+                                                    {expense.name}
+                                                </span>
+
+                                                <div className="text-right">
+                                                    <p className="text-xs font-bold text-white">
+                                                        ${expense.value}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </div>
                         </div>
                         <div className="rounded-xl border border-gray-800 bg-[#0d0e0f] p-5">
                             <div className="mb-5">
@@ -75,53 +177,6 @@ const FinancialAudit = ({ result }) => {
                     </div>
 
                     <section className="mt-8 space-y-5">
-                        <div className="grid grid-cols-3 gap-3">
-                            <div className="rounded-xl border flex items-center gap-4  border-gray-800 bg-[#0d0e0f] p-4">
-                                <CiGlobe size={25} fill="blue" />
-                                <div>
-                                    <p className="text-[8px] font-bold tracking-widest text-gray-500">
-                                        DAILY BURN
-                                    </p>
-
-                                    <p className="mt-2 text-xl font-black text-white">
-                                        ${result.result.key_metrics.daily_burn}
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div className="rounded-xl border flex items-center gap-4 border-gray-800 bg-[#0d0e0f] p-4">
-                                <IoIosFlash size={25} fill="orange" />
-                                <div className="">
-                                    <p className="text-[8px] font-bold tracking-widest text-gray-500">
-                                        TOTAL COST
-                                    </p>
-
-                                    <p className="mt-2 text-xl font-black text-white">
-                                        ${result.result.key_metrics.total_cost}
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div className="rounded-xl border flex items-center gap-4 border-gray-800 bg-[#0d0e0f] p-4">
-                                <AiFillSafetyCertificate
-                                    size={25}
-                                    fill="green"
-                                />
-                                <div>
-                                    <p className="text-[8px] font-bold tracking-widest text-gray-500">
-                                        SAFETY BUFFER
-                                    </p>
-                                    <p className="mt-2 text-xl font-black">
-                                        {
-                                            result.result.key_metrics
-                                                .safety_buffer
-                                        }
-                                        % Buffer
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
                         <div className="rounded-xl border border-gray-800 bg-[#0d0e0f] p-5">
                             <div className="flex items-center justify-between">
                                 <div>
@@ -206,29 +261,7 @@ const FinancialAudit = ({ result }) => {
                             </p>
                         </div>
 
-                        {result.result.issues?.length > 0 && (
-                            <div className="rounded-xl border border-gray-800 bg-[#0d0e0f] p-5">
-                                <p className="text-[9px] font-bold tracking-[0.2em] text-gray-500">
-                                    DETECTED ISSUES
-                                </p>
-
-                                <div className="mt-4 space-y-3">
-                                    {result.result.issues.map(
-                                        (issue, index) => (
-                                            <div
-                                                key={index}
-                                                className="rounded-lg border border-red-500/10 bg-red-500/5 p-3"
-                                            >
-                                                <p className="text-xs leading-5 text-gray-300">
-                                                    {issue}
-                                                </p>
-                                            </div>
-                                        ),
-                                    )}
-                                </div>
-                            </div>
-                        )}
-
+                        
                         {result.result.suggestions?.length > 0 && (
                             <div className="rounded-xl border border-gray-800 bg-[#0d0e0f] p-5">
                                 <p className="text-[9px] font-bold tracking-[0.2em] text-gray-500">
@@ -265,12 +298,12 @@ const FinancialAudit = ({ result }) => {
                                     AI TRAVEL INTELLIGENCE
                                 </p>
 
-                                <div className="mt-4 space-y-3">
+                                <div className="mt-4 space-y-3 ">
                                     {result.result.travel_tips.map(
                                         (tip, index) => (
                                             <div
                                                 key={index}
-                                                className="flex gap-3"
+                                                className="flex gap-3 items-center"
                                             >
                                                 <span className="text-[10px] font-black text-blue-500">
                                                     {String(index + 1).padStart(
@@ -292,7 +325,7 @@ const FinancialAudit = ({ result }) => {
                 </>
             )}
 
-            <div className="bg-blue-500/10 mt-8 rounded-2xl min-h-50 flex items-center justify-center flex-col ">
+            {/* <div className="bg-blue-500/10 mt-8 rounded-2xl min-h-50 flex items-center justify-center flex-col ">
                 <BsStars size={30} fill="blue" />
                 <h3 className="text-[20px] mt-2 tracking-wide font-semibold italic">
                     SYNTHESIZE AI INTEL
@@ -300,7 +333,7 @@ const FinancialAudit = ({ result }) => {
                 <p className="text-blue-500 text-[10px] tracking-widest ">
                     EXECUTE NEUTRAL LINK FOR OPTIMIZATION
                 </p>
-            </div>
+            </div> */}
         </>
     );
 };

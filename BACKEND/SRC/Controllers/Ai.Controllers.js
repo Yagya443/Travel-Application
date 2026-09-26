@@ -178,8 +178,6 @@ const AuditReview = async (req, res) => {
                 "analysis": ""
             },
 
-            "issues": [],
-
             "suggestions": [],
 
             "travel_tips": []
