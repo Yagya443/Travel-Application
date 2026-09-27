@@ -2,11 +2,10 @@ import { useState } from "react";
 import FinancialAudit from "./FinancialAudit";
 import FinancialForm from "./FinancialForm";
 import { useQuery } from "@tanstack/react-query";
-// import useRoutePlanner from "../../Hooks/Planner.hooks";
+import { useNavigate } from "react-router-dom";
+import { useTripPlan } from "../../Hooks/ai.hooks";
 
 const Audit = () => {
-    // const planner = useRoutePlanner();
-
     const [destination, setDestination] = useState("");
     const [duration, setDuration] = useState(null);
     const [unitCount, setUnitCount] = useState(null);
@@ -17,9 +16,6 @@ const Audit = () => {
         queryFn: () => null,
         enabled: false,
     });
-
-    console.log(result);
-    
 
     return (
         <main className="min-h-screen bg-gray-800 text-white overflow-hidden pt-18 px-16">
@@ -36,8 +32,14 @@ const Audit = () => {
                 />
                 <div className="relative px-8 py-6 rounded-2xl lg:px-14 mt-8 border-2">
                     {result ? (
-                        <section className="rounded-2xl  relative">
-                            <FinancialAudit result={result} />
+                        <section className=" rounded-2xl  relative">
+                            <FinancialAudit
+                                result={result}
+                                destination={destination}
+                                duration={duration}
+                                unitCount={unitCount}
+                                operationalTier={operationalTier}
+                            />
                         </section>
                     ) : (
                         <div className="absolute left-1/2 top-1/2 -translate-1/2 font-mono text-2xl">

@@ -1,7 +1,6 @@
 import axios from "axios";
 
 export const generateTrip = async (tripData) => {
-   
     const response = await axios.post(
         `${import.meta.env.VITE_RENDER_URL}/ai/generateTrip`,
         tripData,
@@ -16,7 +15,6 @@ export const generateTrip = async (tripData) => {
 };
 
 export const generateAudit = async (auditData) => {
-   
     const response = await axios.post(
         `${import.meta.env.VITE_RENDER_URL}/ai/generateAudit`,
         auditData,
@@ -28,4 +26,17 @@ export const generateAudit = async (auditData) => {
     );
 
     return response.data;
+};
+
+export const tripPlan = async (tripData) => {
+    const response = await axios.post(
+        `${import.meta.env.VITE_RENDER_URL}/ai/tripplan`,
+        tripData,
+        {
+            headers:{
+                Authorization:`Bearer ${localStorage.getItem("token")}`
+            }
+        }
+    );
+    return response.data
 };

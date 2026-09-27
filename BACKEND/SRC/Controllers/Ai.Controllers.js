@@ -101,11 +101,10 @@ const suggestLocation = async (req, res) => {
     }
 };
 
-const AuditReview = async (req, res) => {
+const AuditReview = async (req, res) => {   
     try {
         const { destination, duration, unitCount, operationalTier } = req.body;
 
-         
         const model = genAI.getGenerativeModel({
             model: "gemini-2.5-flash",
         });
@@ -195,7 +194,6 @@ const AuditReview = async (req, res) => {
             - Return JSON only.
         `);
 
-        
         const answer = output.response.text();
         const cleanedText = answer
             .replace(/```json/g, "")
@@ -213,4 +211,99 @@ const AuditReview = async (req, res) => {
     }
 };
 
-module.exports = { suggestLocation, AuditReview };
+const tripPlan = async (req, res) => {
+    try {
+        const {destination,duration,unitCount,operationalTier, audit } = req.body;
+
+        const model = genAI.getGenerativeModel({
+            model: "gemini-2.5-flash",
+        });
+
+        const output = await model.generateContent(`
+            You are an expert travel itinerary planner.
+
+            Create a complete day-by-day travel itinerary.
+
+            Trip details:
+            Destination: ${destination}
+            Duration: ${duration} days
+            Travelers: ${unitCount}
+            Travel style: ${operationalTier}
+
+            Financial audit:
+            ${JSON.stringify(audit)}
+
+            Create a realistic itinerary for every day.
+            For each day provide:
+            - day
+            - date
+            - title
+            - morning activities
+            - afternoon activities
+            - evening activities
+            - location
+            - estimated cost
+            - total daily cost
+            Make the itinerary geographically efficient.
+            Avoid unnecessary backtracking.
+            Group nearby attractions together.
+            Respect the travel style and budget.
+
+            Return ONLY valid JSON using this structure:
+            {
+                "destination": "${destination}",
+                "duration": ${duration},
+                "travelers": ${unitCount},
+                "travel_style": "${operationalTier}",
+                "itinerary": [
+                    {
+                        "day": 1,
+                        "date": "YYYY-MM-DD",
+                        "title": "Day title",
+
+                        "morning": [
+                            {
+                                "activity": "Activity name",
+                                "location": "Location",
+                                "cost": 0
+                            }
+                        ],
+
+                        "afternoon": [
+                            {
+                                "activity": "Activity name",
+                                "location": "Location",
+                                "cost": 0
+                            }
+                        ],
+                        "evening": [
+                            {
+                                "activity": "Activity name",
+                                "location": "Location",
+                                "cost": 0
+                            }
+                        ],
+                        "totalCost": 0
+                    }
+                ]
+            }
+            `);
+
+        const answer = output.response.text();
+        const cleanedText = answer
+            .replace(/```json/g, "")
+            .replace(/```/g, "")
+            .trim();
+        const plan = JSON.parse(cleanedText);
+
+        res.status(200).json({
+            plan,
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: error.message,
+        });
+    }
+};
+
+module.exports = { suggestLocation, AuditReview, tripPlan };
