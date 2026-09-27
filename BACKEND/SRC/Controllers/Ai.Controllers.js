@@ -106,7 +106,7 @@ const AuditReview = async (req, res) => {
         const { destination, duration, unitCount, operationalTier } = req.body;
 
         const model = genAI.getGenerativeModel({
-            model: "gemini-2.5-flash",
+            model: "gemini-2.5-flash-lite",
         });
 
         const output = await model.generateContent(`
@@ -216,7 +216,7 @@ const tripPlan = async (req, res) => {
         const {destination,duration,unitCount,operationalTier, audit } = req.body;
 
         const model = genAI.getGenerativeModel({
-            model: "gemini-2.5-flash",
+            model: "gemini-2.5-flash-lite",
         });
 
         const output = await model.generateContent(`

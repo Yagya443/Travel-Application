@@ -1,3 +1,5 @@
+import { MapPin } from "lucide-react";
+
 const Activity = ({ activity }) => {
     return (
         <div className="flex items-start justify-between rounded-lg border border-gray-800 bg-[#111213] p-4">

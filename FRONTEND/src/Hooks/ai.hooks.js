@@ -48,6 +48,7 @@ export const useTripPlan = () => {
 
         onError: (error) => {
             console.log("AI Error:", error);
+            console.log("Response:", error.response?.data);
         },
     });
 };

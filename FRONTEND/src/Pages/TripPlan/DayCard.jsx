@@ -1,3 +1,6 @@
+import { CalendarDays, MapPin, Sun, Sunset, Moon, Wallet } from "lucide-react";
+import DaySection from "./DaySection";
+
 const DayCard = ({ day }) => {
     return (
         <section className="rounded-2xl border border-gray-700 bg-[#0d0e0f] p-6">
@@ -53,4 +56,4 @@ const DayCard = ({ day }) => {
     );
 };
 
-export default DayCard
+export default DayCard;
