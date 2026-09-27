@@ -1,6 +1,7 @@
 import { useState } from "react";
 import FinancialAudit from "./FinancialAudit";
 import FinancialForm from "./FinancialForm";
+import { useQuery } from "@tanstack/react-query";
 // import useRoutePlanner from "../../Hooks/Planner.hooks";
 
 const Audit = () => {
@@ -10,8 +11,14 @@ const Audit = () => {
     const [duration, setDuration] = useState(null);
     const [unitCount, setUnitCount] = useState(null);
     const [operationalTier, setOperationalTier] = useState("Budget");
-    const [result, setResult] = useState("");
 
+    const { data: result } = useQuery({
+        queryKey: ["audit"],
+        queryFn: () => null,
+        enabled: false,
+    });
+
+    console.log(result);
     
 
     return (
@@ -26,11 +33,10 @@ const Audit = () => {
                     setUnitCount={setUnitCount}
                     operationalTier={operationalTier}
                     setOperationalTier={setOperationalTier}
-                    setResult={setResult}
                 />
                 <div className="relative px-8 py-6 rounded-2xl lg:px-14 mt-8 border-2">
                     {result ? (
-                        <section className="  rounded-2xl  relative">
+                        <section className="rounded-2xl  relative">
                             <FinancialAudit result={result} />
                         </section>
                     ) : (

@@ -1,5 +1,4 @@
 import React from "react";
-import { PreviewItem } from "../../Components/previewItem";
 import { calculateDuration } from "../../Data/calculateDuration";
 
 const MissionPreview = ({

@@ -1,15 +1,38 @@
-import { useMutation } from "@tanstack/react-query";
-import {generateAudit, generateTrip} from "../Services/ai.services"
-
+import { generateAudit, generateTrip } from "../Services/ai.services";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const useGenerateTrip = () => {
+    const queryClient = useQueryClient();
+
     return useMutation({
         mutationFn: generateTrip,
+
+        onSuccess: (data) => {
+            queryClient.setQueryData(
+                ["tripRecommendation"],
+                data.recommendation,
+            );
+        },
+
+        onError: (error) => {
+            console.log("AI Error:", error);
+        },
     });
 };
 
+
 export const useGenerateAudit = () => {
+    const queryClient = useQueryClient();
+
     return useMutation({
         mutationFn: generateAudit,
+
+        onSuccess: (data) => {
+            queryClient.setQueryData(["audit"], data);
+        },
+
+        onError: (error) => {
+            console.log("AI Error:", error);
+        },
     });
 };

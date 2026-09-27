@@ -1,14 +1,16 @@
 import { CiGlobe } from "react-icons/ci";
 import { IoIosFlash } from "react-icons/io";
 import { AiFillSafetyCertificate } from "react-icons/ai";
-import { FaPencilAlt } from "react-icons/fa";
-import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
+import { useNavigate } from "react-router-dom";
+import { PieChart, Pie, Tooltip, ResponsiveContainer } from "recharts";
 
 const FinancialAudit = ({ result }) => {
     const expenseData = result.result.expense_breakdown.map((expense) => ({
         name: expense.category,
         value: expense.amount,
     }));
+
+    const navigate = useNavigate();
 
     return (
         <>
@@ -195,15 +197,9 @@ const FinancialAudit = ({ result }) => {
                                         {result.result.verdict}
                                     </p>
                                 </div>
-
-                                <div className="flex h-16 w-16 items-center justify-center rounded-full border-4 border-blue-500">
-                                    <span className="text-sm font-black text-white">
-                                        {result.result.overall_score}%
-                                    </span>
-                                </div>
                             </div>
 
-                            <p className="mt-5 text-sm leading-6 text-gray-400">
+                            <p className="mt-5 text-sm leading-6 text-gray-400 text-justify">
                                 {result.result.summary}
                             </p>
                         </div>
@@ -261,79 +257,81 @@ const FinancialAudit = ({ result }) => {
                             </p>
                         </div>
 
-                        
-                        {result.result.suggestions?.length > 0 && (
-                            <div className="rounded-xl border border-gray-800 bg-[#0d0e0f] p-5">
-                                <p className="text-[9px] font-bold tracking-[0.2em] text-gray-500">
-                                    OPTIMIZATION SUGGESTIONS
-                                </p>
+                        <div className="flex gap-3 ">
+                            {result.result.suggestions?.length > 0 && (
+                                <div className="rounded-xl flex-1 border border-gray-800 bg-[#0d0e0f] p-5">
+                                    <p className="text-[9px] font-bold tracking-[0.2em] text-gray-500">
+                                        OPTIMIZATION SUGGESTIONS
+                                    </p>
 
-                                <div className="mt-4 space-y-3">
-                                    {result.result.suggestions.map(
-                                        (suggestion, index) => (
-                                            <div
-                                                key={index}
-                                                className="flex gap-3"
-                                            >
-                                                <span className="text-xs font-black text-blue-500">
-                                                    {String(index + 1).padStart(
-                                                        2,
-                                                        "0",
-                                                    )}
-                                                </span>
+                                    <div className="mt-4 space-y-3 text-justify">
+                                        {result.result.suggestions.map(
+                                            (suggestion, index) => (
+                                                <div
+                                                    key={index}
+                                                    className="flex items-center gap-2"
+                                                >
+                                                    <span className="text-xs font-black text-blue-500">
+                                                        {String(
+                                                            index + 1,
+                                                        ).padStart(2, "0")}
+                                                    </span>
 
-                                                <p className="text-xs leading-5 text-gray-400">
-                                                    {suggestion}
-                                                </p>
-                                            </div>
-                                        ),
-                                    )}
+                                                    <p className="text-xs leading-5 text-gray-400">
+                                                        {suggestion}
+                                                    </p>
+                                                </div>
+                                            ),
+                                        )}
+                                    </div>
                                 </div>
-                            </div>
-                        )}
+                            )}
 
-                        {result.result.travel_tips?.length > 0 && (
-                            <div className="rounded-xl border border-gray-800 bg-[#0d0e0f] p-5">
-                                <p className="text-[9px] font-bold tracking-[0.2em] text-gray-500">
-                                    AI TRAVEL INTELLIGENCE
-                                </p>
+                            {result.result.travel_tips?.length > 0 && (
+                                <div className="rounded-xl flex-1 border border-gray-800 bg-[#0d0e0f] p-5">
+                                    <p className="text-[9px] font-bold tracking-[0.2em] text-gray-500">
+                                        AI TRAVEL INTELLIGENCE
+                                    </p>
 
-                                <div className="mt-4 space-y-3 ">
-                                    {result.result.travel_tips.map(
-                                        (tip, index) => (
-                                            <div
-                                                key={index}
-                                                className="flex gap-3 items-center"
-                                            >
-                                                <span className="text-[10px] font-black text-blue-500">
-                                                    {String(index + 1).padStart(
-                                                        2,
-                                                        "0",
-                                                    )}
-                                                </span>
+                                    <div className="mt-4 space-y-3 text-justify">
+                                        {result.result.travel_tips.map(
+                                            (tip, index) => (
+                                                <div
+                                                    key={index}
+                                                    className="flex gap-3 items-center"
+                                                >
+                                                    <span className="text-[10px] font-black text-blue-500">
+                                                        {String(
+                                                            index + 1,
+                                                        ).padStart(2, "0")}
+                                                    </span>
 
-                                                <p className="text-xs leading-5 text-gray-400">
-                                                    {tip}
-                                                </p>
-                                            </div>
-                                        ),
-                                    )}
+                                                    <p className="text-xs leading-5 text-gray-400">
+                                                        {tip}
+                                                    </p>
+                                                </div>
+                                            ),
+                                        )}
+                                    </div>
                                 </div>
-                            </div>
-                        )}
+                            )}
+                        </div>
+                        <div className="flex justify-end">
+                            <button
+                                onClick={() => {
+                                    const tripId = Math.floor(
+                                        100000 + Math.random() * 900000,
+                                    );
+                                    navigate(`/tripplan/${tripId}`);
+                                }}
+                                className="mt-3 rounded-lg cursor-pointer bg-blue-600 px-4 py-2 text-xs font-bold text-white transition hover:bg-blue-500"
+                            >
+                                Plan This Trip →
+                            </button>
+                        </div>
                     </section>
                 </>
             )}
-
-            {/* <div className="bg-blue-500/10 mt-8 rounded-2xl min-h-50 flex items-center justify-center flex-col ">
-                <BsStars size={30} fill="blue" />
-                <h3 className="text-[20px] mt-2 tracking-wide font-semibold italic">
-                    SYNTHESIZE AI INTEL
-                </h3>
-                <p className="text-blue-500 text-[10px] tracking-widest ">
-                    EXECUTE NEUTRAL LINK FOR OPTIMIZATION
-                </p>
-            </div> */}
         </>
     );
 };

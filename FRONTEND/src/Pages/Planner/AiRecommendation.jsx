@@ -1,6 +1,7 @@
 import React from "react";
 
 const AiRecommendation = ({ recommendation }) => {
+
     return (
         <>
             <section className="mt-8 space-y-6">
@@ -17,7 +18,7 @@ const AiRecommendation = ({ recommendation }) => {
                     </div>
                 </div>
                 <div className="space-y-5">
-                    {recommendation.recommended_destinations?.map(
+                    {recommendation?.recommended_destinations?.map(
                         (destination, index) => (
                             <div
                                 key={destination.name}
@@ -64,7 +65,7 @@ const AiRecommendation = ({ recommendation }) => {
                                     <p className="mb-3 text-[10px] font-black uppercase tracking-widest text-gray-500">
                                         Things you can do
                                     </p>
-                                    <div classNam e="flex flex-wrap gap-2">
+                                    <div className="flex flex-wrap gap-2">
                                         {destination.main_activities.map(
                                             (activity) => (
                                                 <span
@@ -77,9 +78,7 @@ const AiRecommendation = ({ recommendation }) => {
                                         )}
                                     </div>
                                 </div>
-                                <button className="mt-3 rounded-lg cursor-pointer bg-blue-600 px-4 py-2 text-xs font-bold text-white transition hover:bg-blue-500">
-                                    Plan This Trip →
-                                </button>
+                                
                             </div>
                         ),
                     )}

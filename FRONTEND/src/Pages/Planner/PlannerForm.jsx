@@ -19,7 +19,6 @@ const PlannerForm = ({
     setMinBudget,
     setMaxBudget,
     selected,
-    setRecommendation
 }) => {
     const { mutate, isPending } = useGenerateTrip();
 
@@ -34,15 +33,7 @@ const PlannerForm = ({
             maxBudget,
             selected,
         };
-        mutate(tripData, {
-            onSuccess: (data) => {
-                setRecommendation(data.recommendation);
-            },
-
-            onError: (error) => {
-                console.log("AI Error:", error);
-            },
-        });
+        mutate(tripData);
     };
 
     return (

@@ -5,6 +5,7 @@ import useRoutePlanner from "../../Hooks/Planner.hooks";
 import ExperienceSection from "./ExperienceSection";
 import MissionPreview from "./MissionPreview";
 import AiRecommendation from "./AiRecommendation";
+import { useQuery } from "@tanstack/react-query";
 
 const RouteSynthesis = () => {
     const [startDate, setStartDate] = useState("");
@@ -24,7 +25,11 @@ const RouteSynthesis = () => {
         );
     };
 
-    const [recommendation, setRecommendation] = useState("");
+    const { data: recommendation } = useQuery({
+        queryKey: ["tripRecommendation"],
+        queryFn: () => null,
+        enabled: false,
+    });
 
     return (
         <main className="min-h-screen bg-gray-800 text-white overflow-hidden pt-18">
@@ -60,12 +65,11 @@ const RouteSynthesis = () => {
                     setMinBudget={setMinBudget}
                     setMaxBudget={setMaxBudget}
                     selected={selected}
-                    setRecommendation={setRecommendation}
                 />
 
-                {/* {recommendation && ( */}
+                {recommendation && (
                     <AiRecommendation recommendation={recommendation} />
-                {/* )} */}
+                )}
             </div>
         </main>
     );

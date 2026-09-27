@@ -1,7 +1,6 @@
 import { ArrowRight, Calendar, MapPin } from "lucide-react";
 import { GoPerson } from "react-icons/go";
 import { useGenerateAudit } from "../../Hooks/ai.hooks";
-import { useState } from "react";
 
 const FinancialForm = ({
     destination,
@@ -12,9 +11,8 @@ const FinancialForm = ({
     setUnitCount,
     setOperationalTier,
     operationalTier,
-    setResult,
 }) => {
-    const { mutate, isPending } = useGenerateAudit("");
+    const { mutate, isPending } = useGenerateAudit();
 
     const handleAuditTrip = () => {
         const auditData = {
@@ -24,15 +22,7 @@ const FinancialForm = ({
             operationalTier,
         };
 
-        mutate(auditData, {
-            onSuccess: (data) => {
-                setResult(data);
-            },
-
-            onError: (error) => {
-                console.log("AI Error:", error);
-            },
-        });
+        mutate(auditData);
     };
 
     return (
@@ -104,15 +94,15 @@ const FinancialForm = ({
             </div>
 
             <div className="mb-8">
-                <label
-                    onChange={(e) => setOperationalTier(e.target.value)}
-                    value={operationalTier}
-                    className="mb-2 block text-[8px] font-semibold tracking-[0.18em] text-gray-500"
-                >
+                <label className="mb-2 block text-[8px] font-semibold tracking-[0.18em] text-gray-500">
                     OPERATIONAL TIER
                 </label>
 
-                <select className="rounded-lg w-full border border-gray-700 bg-gray-900 px-3 py-2 text-sm text-blue-400 font-semibold">
+                <select
+                    onChange={(e) => setOperationalTier(e.target.value)}
+                    value={operationalTier}
+                    className="rounded-lg w-full border border-gray-700 bg-gray-900 px-3 py-2 text-sm text-blue-400 font-semibold"
+                >
                     <option value="Budget">Budget</option>
                     <option value="Standard">Standard</option>
                     <option value="Premium">Premium</option>
