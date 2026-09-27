@@ -2,39 +2,45 @@ const mongoose = require("mongoose");
 
 const tripSchema = new mongoose.Schema(
     {
-        user: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "User",
-            required: true,
-        },
         destination: {
             type: String,
             required: true,
         },
-        startDate: {
-            type: Date,
+
+        duration: {
+            type: Number,
             required: true,
         },
-        endDate: {
-            type: Date,
+
+        travelers: {
+            type: Number,
             required: true,
         },
-        adults: {
-            type: Number,
-            default: 1,
+
+        travel_style: {
+            type: String,
+            required: true,
         },
-        children: {
-            type: Number,
-            default: 0,
+
+        itinerary: {
+            type: Array,
+            required: true,
         },
-        minBudget: {
+
+        budget: {
             type: Number,
         },
-        maxBudget: {
-            type: Number,
+
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+            required: false,
         },
     },
-    { timestamps: true },
+    {
+        timestamps: true,
+    }
 );
+
 
 module.exports = mongoose.model("Trip", tripSchema);
