@@ -28,9 +28,9 @@ export const generateAudit = async (auditData) => {
     return response.data;
 };
 
-export const tripPlan = async (tripData) => {
+export const createTrip = async (tripData) => {
     const response = await axios.post(
-        `${import.meta.env.VITE_RENDER_URL}/ai/tripplan`,
+        `${import.meta.env.VITE_RENDER_URL}/trip/createTrip`,
         tripData,
         {
             headers:{

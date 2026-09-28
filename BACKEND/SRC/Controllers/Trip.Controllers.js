@@ -1,5 +1,6 @@
 const Trip = require("../Model/Trip.Model");
 const jwt = require("jsonwebtoken");
+const { tripPlan } = require("./Ai.Controllers");
 
 // createTrip
 // getTrip
@@ -13,40 +14,51 @@ const jwt = require("jsonwebtoken");
 const createTrip = async (req, res) => {
     try {
         const {
-            user,
             destination,
-            startDate,
-            endDate,
-            adults,
-            minBudget,
-            maxBudget,
+            duration,
+            unitCount,
+            operationalTier,
+            audit,
         } = req.body;
 
-        const trip = new Trip({
-            user: req.user._id,
+        const data = await tripPlan({
             destination,
-            startDate,
-            endDate,
-            adults,
-            minBudget,
-            maxBudget,
+            duration,
+            unitCount,
+            operationalTier,
+            audit,
+        });
+
+        const trip = new Trip({
+            user: req.user.id,
+            destination,
+            duration,
+            unitCount,
+            operationalTier,
+            audit,
+            itinerary: data,
         });
 
         await trip.save();
+
         res.status(201).json({
             message: "Trip created successfully",
             trip,
         });
+
     } catch (error) {
+        console.log(error);
+
         res.status(500).json({
             message: "Something went wrong in controller",
+            error: error.message,
         });
     }
 };
 
 const getTrip = async (req, res) => {
     try {
-        const allTrip = await Trip.find({ user: req.user._id });
+        const allTrip = await Trip.find({ user: req.user.id });
 
         res.status(201).json({ allTrip });
     } catch (error) {
@@ -60,10 +72,9 @@ const getTripById = async (req, res) => {
     try {
         const { id } = req.params;
 
-        const getTrip=await Trip.findById(id)
+        const getTrip = await Trip.findById(_id);
 
         return res.status(200).json(getTrip);
-
     } catch (error) {
         res.status(401).json({ message: "Something went wrong in deleting" });
     }
@@ -74,8 +85,8 @@ const deleteTrip = async (req, res) => {
         const { id } = req.params;
 
         const deleteTrip = await Trip.findOneAndDelete({
-            id,
-            user: req.user._id,
+            _id,
+            user: req.user.id,
         });
 
         if (!deleteTrip) {
@@ -121,4 +132,4 @@ const editTrip = async (req, res) => {
     }
 };
 
-module.exports = { createTrip, getTrip, deleteTrip, editTrip ,getTripById};
+module.exports = { createTrip, getTrip, deleteTrip, editTrip, getTripById };

@@ -7,34 +7,40 @@ const tripSchema = new mongoose.Schema(
             ref: "User",
             required: true,
         },
+
         destination: {
             type: String,
             required: true,
         },
-        startDate: {
-            type: Date,
+
+        duration: {
+            type: Number,
             required: true,
         },
-        endDate: {
-            type: Date,
+
+        unitCount: {
+            type: Number,
             required: true,
         },
-        adults: {
-            type: Number,
-            default: 1,
+
+        operationalTier: {
+            type: String,
+            enum: ["Budget", "Standard", "Premium"],
+            required: true,
         },
-        children: {
-            type: Number,
-            default: 0,
+
+        audit: {
+            type: mongoose.Schema.Types.Mixed,
         },
-        minBudget: {
-            type: Number,
-        },
-        maxBudget: {
-            type: Number,
+
+        itinerary: {
+            type: mongoose.Schema.Types.Mixed,
+            required: true,
         },
     },
-    { timestamps: true },
+    {
+        timestamps: true,
+    },
 );
 
 module.exports = mongoose.model("Trip", tripSchema);

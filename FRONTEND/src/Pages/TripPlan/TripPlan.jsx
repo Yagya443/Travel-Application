@@ -5,7 +5,7 @@ const TripPlan = () => {
     const location = useLocation();
 
     const result = location.state?.tripPlan;
-    const plan = result?.plan;
+    const plan = result?.trip?.itinerary;
 
     console.log("TripPlan:", plan);
 

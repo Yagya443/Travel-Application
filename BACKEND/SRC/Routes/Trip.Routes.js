@@ -6,7 +6,7 @@ const router=express.Router()
 
 router.post("/createTrip",authMiddleware, createTrip)
 router.get("/getTrip", authMiddleware, getTrip)
-router.get("/getTripById",authMiddleware, getTripById)
+router.get("/getTripById/:id",authMiddleware, getTripById)
 router.delete("/deleteTrip",authMiddleware, deleteTrip)
 router.put("/editTrip",authMiddleware, editTrip)
 
