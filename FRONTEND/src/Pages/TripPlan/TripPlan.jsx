@@ -7,8 +7,6 @@ const TripPlan = () => {
     const result = location.state?.tripPlan;
     const plan = result?.trip?.itinerary;
 
-    console.log("TripPlan:", plan);
-
     if (!plan) {
         return (
             <main className="min-h-screen bg-gray-800 px-6 py-20 text-white lg:px-16">
@@ -30,38 +28,30 @@ const TripPlan = () => {
     return (
         <main className="min-h-screen bg-gray-800 px-6 py-20 text-white lg:px-16">
             <div className="mx-auto max-w-5xl">
-                {/* HEADER */}
                 <header className="mb-10">
                     <p className="text-xs font-bold tracking-[0.3em] text-blue-500">
                         TRIP PLAN
                     </p>
-
                     <h1 className="mt-2 text-4xl font-black uppercase">
                         {plan.destination}
                     </h1>
-
                     <p className="mt-3 max-w-xl text-sm leading-6 text-gray-500">
                         Your complete day-by-day travel plan designed around
                         your destination, budget and travel preferences.
                     </p>
-
-                    {/* TRIP INFORMATION */}
                     <div className="mt-6 grid grid-cols-3 gap-3">
                         <div className="rounded-lg border border-gray-700 bg-[#111213] p-4">
                             <p className="text-[10px] font-bold text-gray-500">
                                 DURATION
                             </p>
-
                             <p className="mt-1 text-sm font-bold">
                                 {plan.duration} Days
                             </p>
                         </div>
-
                         <div className="rounded-lg border border-gray-700 bg-[#111213] p-4">
                             <p className="text-[10px] font-bold text-gray-500">
                                 TRAVELERS
                             </p>
-
                             <p className="mt-1 text-sm font-bold">
                                 {plan.travelers} People
                             </p>
@@ -71,7 +61,6 @@ const TripPlan = () => {
                             <p className="text-[10px] font-bold text-gray-500">
                                 TRAVEL STYLE
                             </p>
-
                             <p className="mt-1 text-sm font-bold">
                                 {plan.travel_style}
                             </p>
@@ -79,7 +68,6 @@ const TripPlan = () => {
                     </div>
                 </header>
 
-                {/* ITINERARY */}
                 {plan.itinerary?.length > 0 ? (
                     <div className="space-y-6">
                         {plan.itinerary.map((day, index) => (

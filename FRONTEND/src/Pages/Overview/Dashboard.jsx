@@ -9,11 +9,18 @@ import {
 } from "lucide-react";
 import { CiBookmark } from "react-icons/ci";
 import { Link, useNavigate } from "react-router-dom";
-import { useGetTrips } from "../../Hooks/trip.hooks";
+import {
+    useDeleteTrip,
+    useEditTrip,
+    useGetTrips,
+} from "../../Hooks/trip.hooks";
+import { MdDelete } from "react-icons/md";
 
 const Dashboard = () => {
     const navigate = useNavigate();
     const { data: trips, isLoading, isError } = useGetTrips();
+    const { mutate: editTrip } = useEditTrip();
+    const { mutate: deleteTrip } = useDeleteTrip();
 
     if (isLoading) {
         return <p>Loading...</p>;
@@ -69,60 +76,88 @@ const Dashboard = () => {
                         </div>
                     ) : (
                         <div className="grid gap-5 grid-cols-2">
-                            {trips.allTrip?.map((trip) => (
-                                <div className="group  overflow-hidden rounded-2xl border border-white bg-gray-900 transition hover:-translate-y-1 hover:shadow-lg">
-                                    <div className="relative h-48 overflow-hidden">
-                                        <img
-                                            src={
-                                                "https://images.unsplash.com/photo-1790440573092-e947bde863b2?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                            }
-                                            alt={trip.destination}
-                                            className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                                        />
+                            {trips.allTrip?.map(
+                                (trip) =>
+                                    !trip.visited && (
+                                        <div
+                                            onClick={()=>navigate(`/tripplan/${trip._id}`)}
+                                            key={trip._id}
+                                            className="group  overflow-hidden rounded-2xl border border-white bg-gray-900 transition hover:-translate-y-1 hover:shadow-lg"
+                                        >
+                                            <div className="relative h-48 overflow-hidden">
+                                                <img
+                                                    src={
+                                                        "https://images.unsplash.com/photo-1790440573092-e947bde863b2?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                                    }
+                                                    alt={trip.destination}
+                                                    className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                                                />
 
-                                        <div className="absolute left-4 top-4 rounded-full bg-white px-3 py-1 text-xs font-semibold text-green-600 ">
-                                            {trip.operationalTier}
-                                        </div>
-                                    </div>
-
-                                    <div className="p-5">
-                                        <div className="flex items-start justify-between">
-                                            <div>
-                                                <h3 className="text-lg font-bold text-white">
-                                                    {trip.destination}
-                                                </h3>
-
-                                                <div className="mt-2 flex items-center gap-1.5 text-xs text-slate-500">
-                                                    <CalendarDays size={14} />
-                                                    {trip.duration} Days
+                                                <div className="absolute left-4 top-4 rounded-full bg-white px-3 py-1 text-xs font-semibold text-green-600 ">
+                                                    {trip.operationalTier}
                                                 </div>
                                             </div>
 
-                                            <button className="rounded-lg p-2 text-slate-400 hover:bg-slate-100 transition-all duration-200 hover:text-slate-700">
-                                                <ArrowRight size={18} />
-                                            </button>
-                                        </div>
+                                            <div className="p-3">
+                                                <div className="flex items-start justify-between">
+                                                    <h3 className="text-lg font-bold text-white">
+                                                        {trip.destination}
+                                                    </h3>
 
-                                        <div className="mt-5 flex items-center justify-between gap-5 border-t border-slate-100 pt-4">
-                                            <div className="flex items-center gap-4">
-                                                <div className="flex items-center gap-1.5 text-xs text-slate-500">
-                                                    <Clock3 size={14} />
-                                                    {trip.duration} Days
+                                                    <button className="rounded-lg p-2 text-slate-400 hover:bg-slate-100 transition-all duration-200 hover:text-slate-700">
+                                                        <ArrowRight size={18} />
+                                                    </button>
                                                 </div>
 
-                                                <div className="flex items-center gap-1.5 text-xs text-slate-500">
-                                                    <Users size={14} />
-                                                    {trip.unitCount} Travelers
+                                                <div className="mt-2 flex items-center justify-between gap-5 border-t border-slate-100 pt-4">
+                                                    <div className="flex items-center gap-4">
+                                                        <div className="flex items-center gap-1.5 text-xs text-slate-500">
+                                                            <Clock3 size={14} />
+                                                            {trip.duration} Days
+                                                        </div>
+
+                                                        <div className="flex items-center gap-1.5 text-xs text-slate-500">
+                                                            <Users size={14} />
+                                                            {
+                                                                trip.unitCount
+                                                            }{" "}
+                                                            Travelers
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="flex items-center gap-4">
+                                                        <button
+                                                            onClick={() =>
+                                                                deleteTrip({
+                                                                    tripId: trip._id,
+                                                                })
+                                                            }
+                                                            className="rounded-lg bg-white p-2 transition-all duration-200 hover:scale-105 hover:text-red-500 hover:bg-red-50"
+                                                        >
+                                                            <MdDelete
+                                                                size={15}
+                                                            />
+                                                        </button>
+
+                                                        <button
+                                                            onClick={() =>
+                                                                editTrip({
+                                                                    tripId: trip._id,
+                                                                    tripData: {
+                                                                        visited: true,
+                                                                    },
+                                                                })
+                                                            }
+                                                            className=" bg-white py-1 px-4 font-semibold cursor-pointer hover:scale-105 rounded-lg transition-all duration-200"
+                                                        >
+                                                            Mark as Complete
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
-
-                                            <button className=" bg-white py-1 px-4 cursor-pointer hover:scale-110 rounded-lg transition-all duration-200">
-                                                Mark as Done
-                                            </button>
                                         </div>
-                                    </div>
-                                </div>
-                            ))}
+                                    ),
+                            )}
                         </div>
                     )}
                 </section>

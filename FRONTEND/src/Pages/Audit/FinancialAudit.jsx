@@ -19,7 +19,6 @@ const FinancialAudit = ({
             value: expense.amount,
         })) || [];
     const handlePlanTrip = () => {
-        const tripId = Math.floor(100000 + Math.random() * 900000);
         const tripData = {
             destination,
             duration,
@@ -29,7 +28,7 @@ const FinancialAudit = ({
         };
         mutate(tripData, {
             onSuccess: (data) => {
-                console.log("Trip Plan AI Response:", data);
+                const tripId = data.trip._id;
                 navigate(`/tripplan/${tripId}`, {
                     state: { tripPlan: data, tripId },
                 });

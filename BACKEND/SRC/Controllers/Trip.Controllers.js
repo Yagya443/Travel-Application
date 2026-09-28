@@ -13,13 +13,8 @@ const { tripPlan } = require("./Ai.Controllers");
 
 const createTrip = async (req, res) => {
     try {
-        const {
-            destination,
-            duration,
-            unitCount,
-            operationalTier,
-            audit,
-        } = req.body;
+        const { destination, duration, unitCount, operationalTier, audit } =
+            req.body;
 
         const data = await tripPlan({
             destination,
@@ -45,7 +40,6 @@ const createTrip = async (req, res) => {
             message: "Trip created successfully",
             trip,
         });
-
     } catch (error) {
         console.log(error);
 
@@ -58,7 +52,9 @@ const createTrip = async (req, res) => {
 
 const getTrip = async (req, res) => {
     try {
-        const allTrip = await Trip.find({ user: req.user.id });
+        const allTrip = await Trip.find({ user: req.user.id }).sort({
+            createdAt: -1,
+        });
 
         res.status(201).json({ allTrip });
     } catch (error) {
@@ -85,7 +81,7 @@ const deleteTrip = async (req, res) => {
         const { id } = req.params;
 
         const deleteTrip = await Trip.findOneAndDelete({
-            _id,
+            _id:id,
             user: req.user.id,
         });
 
@@ -108,7 +104,7 @@ const editTrip = async (req, res) => {
         const { id } = req.params;
         const editTrip = await Trip.findOneAndUpdate(
             {
-                id,
+                _id: id,
                 user: req.user.id,
             },
             req.body,
