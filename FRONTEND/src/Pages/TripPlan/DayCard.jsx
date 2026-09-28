@@ -27,7 +27,7 @@ const DayCard = ({ day }) => {
                         <Wallet size={14} className="text-blue-400" />
 
                         <span className="text-xs font-bold text-blue-400">
-                            ₹{day.totalCost}
+                            ${day.totalCost}
                         </span>
                     </div>
                 )}

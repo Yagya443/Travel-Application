@@ -18,7 +18,7 @@ const Activity = ({ activity }) => {
 
             {activity?.cost !== undefined && (
                 <span className="ml-4 text-xs font-bold text-blue-400">
-                    ₹{activity.cost}
+                    ${activity.cost}
                 </span>
             )}
         </div>

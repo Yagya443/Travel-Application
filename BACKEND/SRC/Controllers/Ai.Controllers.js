@@ -246,7 +246,7 @@ const tripPlan = async ({
         - afternoon activities
         - evening activities
         - location
-        - estimated cost
+        - estimated cost in USD
         - total daily cost
 
         Make the itinerary geographically efficient.
