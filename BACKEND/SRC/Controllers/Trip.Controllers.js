@@ -68,7 +68,7 @@ const getTripById = async (req, res) => {
     try {
         const { id } = req.params;
 
-        const getTrip = await Trip.findById(_id);
+        const getTrip = await Trip.findById(id);
 
         return res.status(200).json(getTrip);
     } catch (error) {

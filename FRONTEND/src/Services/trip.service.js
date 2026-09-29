@@ -25,7 +25,7 @@ export const getTrip = async () => {
     return response.data;
 };
 
-export const getTripById = async ({tripDataId}) => {
+export const getTripById = async (tripDataId) => {
     const response = await axios.get(
         `${import.meta.env.VITE_RENDER_URL}/trip/getTripById/${tripDataId}`,
         {

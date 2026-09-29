@@ -1,12 +1,21 @@
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { useGetTripById } from "../../Hooks/trip.hooks";
 import DayCard from "./DayCard";
 
 const TripPlan = () => {
-    const location = useLocation();
+    const { tripId } = useParams();
 
-    const result = location.state?.tripPlan;
-    const plan = result?.trip?.itinerary;
+    const { data: trip, isLoading, isError } = useGetTripById(tripId);
 
+    if (isLoading) {
+        return <p className="text-white">Loading...</p>;
+    }
+
+    if (isError) {
+        return <p className="text-white">Failed to load trip.</p>;
+    }
+
+    const plan = trip?.itinerary;
     if (!plan) {
         return (
             <main className="min-h-screen bg-gray-800 px-6 py-20 text-white lg:px-16">
