@@ -26,7 +26,7 @@ const TripPlan = () => {
                         </p>
 
                         <pre className="mt-6 overflow-auto rounded-lg bg-black p-4 text-left text-xs text-gray-400">
-                            {JSON.stringify(result, null, 2)}
+                            {JSON.stringify(trip, null, 2)}
                         </pre>
                     </div>
                 </div>

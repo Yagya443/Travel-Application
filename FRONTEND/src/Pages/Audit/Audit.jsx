@@ -2,8 +2,6 @@ import { useState } from "react";
 import FinancialAudit from "./FinancialAudit";
 import FinancialForm from "./FinancialForm";
 import { useQuery } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
-import { useTripPlan } from "../../Hooks/ai.hooks";
 
 const Audit = () => {
     const [destination, setDestination] = useState("");

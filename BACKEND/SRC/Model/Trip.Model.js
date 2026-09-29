@@ -37,10 +37,13 @@ const tripSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.Mixed,
             required: true,
         },
-        visited:{
+        visited: {
             type: Boolean,
-            default:false
-        }
+            default: false,
+        },
+        image: {
+            type: String,
+        },
     },
     {
         timestamps: true,

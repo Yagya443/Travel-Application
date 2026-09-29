@@ -13,7 +13,7 @@ const { tripPlan } = require("./Ai.Controllers");
 
 const createTrip = async (req, res) => {
     try {
-        const { destination, duration, unitCount, operationalTier, audit } =
+        const { destination, duration, unitCount, operationalTier, audit,image } =
             req.body;
 
         const data = await tripPlan({
@@ -32,6 +32,7 @@ const createTrip = async (req, res) => {
             operationalTier,
             audit,
             itinerary: data,
+            image
         });
 
         await trip.save();

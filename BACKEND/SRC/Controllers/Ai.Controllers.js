@@ -248,6 +248,7 @@ const tripPlan = async ({
         - location
         - estimated cost in USD
         - total daily cost
+        - for image i want any image of ${destination} from unplash
 
         Make the itinerary geographically efficient.
         Avoid unnecessary backtracking.
@@ -261,6 +262,7 @@ const tripPlan = async ({
             "duration": ${duration},
             "travelers": ${unitCount},
             "travel_style": "${operationalTier}",
+            "image":"",
             "itinerary": [
                 {
                     "day": 1,
